@@ -16,6 +16,13 @@ Esta skill cobre a trilha prática do curso: um projeto de squad, sobre um caso 
 
 Os dados brutos ficam em `Projeto/Encontro 1/Dados/*.csv` (d1_frota.csv — 184 linhas, d2_telemetria.csv — 42458 linhas, d3_ordens.csv — 2122 linhas, d4_garantia.csv — 712 linhas); o dicionário de cada campo está reproduzido em `references/dossie-camada-0.md`, não é necessário reabrir os CSVs para responder perguntas conceituais sobre eles.
 
+### Análise exploratória já feita (preparo pessoal, não é o instrumento oficial)
+- `Projeto/Encontro 1/RESUMO_DESAFIO_1.md` — testa as três justificativas do pedido da diretoria (C0-05) contra os dados reais e levanta achados adicionais. Resumo das conclusões: a duração por atendimento ficou quase estável (~+8%/ano) enquanto o volume de corretivas triplicou com a mesma equipe de 14 técnicos (gargalo de capacidade é candidato mais forte que "atendimento mais lento"); a hipótese de "técnicos novos sem experiência" não é testável com os dados disponíveis (todos os técnicos aparecem desde o 1º mês); a reincidência é real e concentrada em 3 causas (`falha_eletrica`, `vazamento_oleo`, `contaminacao_particulado`); a hipótese ambiental óbvia (mais contaminação em ambiente com mais particulado) não se sustenta; telemetria só dá sinal de alerta prévio (alta de temperatura) para `falha_valvula_admissao`/`falha_vedacao` (amostra pequena), não para as 3 causas mais frequentes.
+- `Projeto/Encontro 1/notebook_analise_exploratoria.ipynb` — notebook (rodável local ou no Colab) que reproduz toda essa análise com gráficos, célula a célula, pronto para o squad discutir/contestar/aprofundar.
+- `Projeto/Encontro 1/analise/` — os mesmos cálculos como módulos Python reutilizáveis (`carregar_dados.py`, `analise.py`, `relatorio.py`) com validação de integridade dos dados; ver `analise/README.md`.
+
+Ao ajudar a preencher o Mapa Técnico do Problema, usar esses achados como evidência candidata (citando `conjunto.campo` como proveniência), não como a delimitação já fechada — o enunciado final ainda é produzido pelo squad em sala.
+
 ## Quando os Encontros 2 e 3 chegarem
 Quando novos arquivos `KIT-0xx` referentes ao Encontro 2 (ex.: Matriz de Alternativas, Decisão Justificada, Canvas de Arquitetura Conceitual) ou Encontro 3 (Matriz de Teste, Matriz de Validação, Proposta Técnica Final, Roteiro de Pitch, Registro de princípios transferíveis) forem adicionados à pasta `Projeto/`, criar `references/encontro-2.md` e `references/encontro-3.md` seguindo o mesmo formato de `encontro-1.md` (o que produzir + critério de pronto de cada instrumento, pré-requisitos de módulo do curso base, sequência de tempo, regras específicas daquele encontro) e atualizar esta tabela.
 
