@@ -161,6 +161,37 @@ def alerta_telemetria_antes_de_corretiva(
     return resumo
 
 
+def indicador_painel_oficial(dados: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Reproduz o indicador 'tempo medio de atendimento' tal como o painel da
+    Aroeira o define (C1-02): media de duracao_horas sobre TODAS as ordens
+    abertas no mes, nao apenas as corretivas.
+
+    Usar este indicador (e nao `tendencia_duracao_e_volume`, que filtra só
+    corretivas) para comparar contra os valores oficiais do painel citados
+    pela diretoria.
+    """
+    d3 = dados["ordens"].copy()
+    d3["mes"] = d3["data_abertura"].dt.to_period("M")
+    return d3.groupby("mes")["duracao_horas"].mean().round(2).to_frame("tempo_medio_atendimento_h")
+
+
+def mix_tipo_ordem_por_mes(dados: dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """Testa a hipotese de 'mix-shift': a proporcao de corretivas (o tipo de
+    ordem mais demorado) cresce no tempo, enquanto a duracao media de CADA
+    tipo de ordem permanece estavel?
+
+    Retorna duas tabelas lado a lado: a proporcao de cada tipo_ordem por mes
+    e a duracao media de cada tipo_ordem por mes.
+    """
+    d3 = dados["ordens"].copy()
+    d3["mes"] = d3["data_abertura"].dt.to_period("M")
+
+    proporcao = pd.crosstab(d3["mes"], d3["tipo_ordem"], normalize="index").round(3)
+    duracao = d3.groupby(["mes", "tipo_ordem"])["duracao_horas"].mean().unstack().round(2)
+
+    return proporcao, duracao
+
+
 def panorama_garantia(dados: dict[str, pd.DataFrame]) -> dict:
     """Achado adicional: como se distribuem as decisoes de garantia e a contestacao."""
     d4 = dados["garantia"]

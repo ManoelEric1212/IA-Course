@@ -24,12 +24,22 @@ O erro clássico (já visto nos slides do curso base, módulo M1: "o reflexo do 
 
 ## O que a análise dos dados (D1–D4) mostra — hipótese por hipótese
 
-### 1. "Tempo médio de atendimento subiu" — parcialmente, mas não pelo motivo óbvio
-- Duração média por atendimento corretivo: **5,64h (set/2025) → 6,08h (ago/2026)** — alta de ~8%, quase plana (regressão linear: +0,024h/mês).
-- Volume de ordens corretivas no mesmo período: **45/mês → 144/mês — um crescimento de 3,2x.**
-- O quadro de técnicos (`id_tecnico` em D3) é o **mesmo desde o primeiro mês**: 14 técnicos ativos já em setembro/2025, nenhum técnico novo claramente identificável entrando depois.
-- **Leitura candidata**: se o "tempo médio" que subiu no painel da empresa é tempo de ciclo/espera (não a duração do atendimento em si), o fenômeno bate melhor com **gargalo de capacidade** (demanda triplicou, equipe não cresceu) do que com "técnico demora mais por chamado". Isso muda completamente o tipo de solução a considerar.
-- **Ponto cego**: D3 não tem indicador de fila/espera (só duração do atendimento já em andamento) — essa é uma lacuna de dado a registrar no Mapa, não uma suposição a resolver aqui.
+### 1. "Tempo médio de atendimento subiu" — confirmado e explicado com precisão (atualizado com a camada 1)
+A camada 1 trouxe o indicador **real** do painel (C1-02): **"tempo médio de atendimento" = média de `duracao_horas` sobre TODAS as ordens abertas no mês** (corretiva + preventiva + inspeção + comissionamento), não só as corretivas. Valor oficial: **3,4h (set/2025) → 4,5h (ago/2026)**, média do período 4,0h.
+
+> **Correção de rota**: a primeira versão desta análise tinha calculado a duração só sobre ordens corretivas (5,64h → 6,08h, alta de ~8%) — um erro de escopo. Reproduzindo o indicador exatamente como o painel define (sobre todas as ordens), a série bate com a oficial quase ponto a ponto (3,40 / 3,69 / 3,89 / 3,77 / 3,66 / 4,16 / 4,17 / 3,85 / 4,28 / 4,42 / 4,16 / 4,46 — ver `analise.py::indicador_painel_oficial`).
+
+O mecanismo real, agora confirmado:
+- A duração média **de cada tipo de ordem**, isoladamente, fica **estável** o ano inteiro: corretiva ~5,6–6,1h, preventiva ~2,4–2,6h, inspeção ~1,3–1,4h.
+- O que muda é o **mix**: a proporção de corretivas sobe de **36,9% para 59,0%** das ordens do mês, enquanto preventivas caem de **35,2% para 23,0%** e inspeções de 24,6% para 15,6%.
+- Como corretiva demora ~2,4x mais que preventiva, um mix com mais corretiva **puxa a média geral para cima mecanicamente** — mesmo sem nenhum atendimento individual ficando mais lento.
+- Volume absoluto também cresceu (122 → 244 ordens/mês, ~2x no total; 3,2x só nas corretivas) — ou seja, há dois efeitos simultâneos: mais trabalho no total, e proporcionalmente mais trabalho reativo (corretivo) em vez de preventivo.
+
+**Leitura candidata (agora bem mais específica)**: o sintoma "tempo médio subiu" é real e **mecanicamente explicado pelo mix de ordens**, não por lentidão de atendimento. A pergunta que o Mapa Técnico precisa levantar não é "por que o técnico demora mais", e sim **"por que a proporção de corretivas está crescendo em relação às preventivas"** — hipótese de um ciclo: menos tempo para manutenção preventiva → mais falhas → mais corretivas → ainda menos tempo para preventiva.
+
+### Depoimentos dos técnicos (C1-03, C1-04) — cruzamento qualitativo com os dados
+- **Iran**: o que consome tempo não é o serviço em si, é **chegar sem saber o que já foi feito naquele equipamento** (histórico espalhado entre técnicos) e **buscar o procedimento certo num manual extenso no celular**, no meio do atendimento. Dor específica de **acesso à informação já existente**, não de decisão.
+- **Kleber**: em algumas plantas, ele já **sabe informalmente** qual peça vai trocar antes de abrir o equipamento — reconhece um padrão de recorrência — mas **não tem registro nem número pra mostrar isso**. Essa fala **valida qualitativamente** o achado quantitativo de reincidência concentrada (seção 3 abaixo): o que os dados mostram agregado, o técnico mais experiente já percebe individualmente, sem conseguir provar.
 
 ### 2. "Técnicos novos sem experiência na série CP" — não verificável com os dados disponíveis
 - Os 14 `id_tecnico` aparecem todos entre 01/set e 02/out/2025 — não há um grupo claramente "mais novo" entrando depois, pelo menos não de forma visível em D3.
@@ -50,15 +60,17 @@ O erro clássico (já visto nos slides do curso base, módulo M1: "o reflexo do 
 
 ## Reframe para levar ao squad (ponto de partida, não resposta fechada)
 
-O pedido original mira **acesso à informação durante o atendimento** (chatbot). Os dados sugerem que os três sintomas citados têm, cada um, uma leitura alternativa mais provável:
-- tempo subindo → **possível gargalo de capacidade/fila** (volume 3,2x, equipe estável), não falta de informação;
-- técnico novo sem experiência → **não testável com os dados atuais**, é lacuna, não fato;
-- reincidência → **real, mas concentrada em 3 causas**, sugerindo problema de eficácia do reparo (ou de diagnóstico) nessas causas, não de acesso a manual.
+O pedido original mira **acesso à informação durante o atendimento** (chatbot). Com a camada 1, os três sintomas citados ficam mais nítidos — dois confirmados com mecanismo preciso, um ainda não testável:
+- tempo subindo → **confirmado e explicado**: mix de ordens migrando de preventiva para corretiva (36,9%→59,0%), não atendimento mais lento — a pergunta real é por que a preventiva está perdendo espaço;
+- técnico novo sem experiência → **ainda não testável com os dados atuais**, é lacuna, não fato;
+- reincidência → **real, concentrada em 3 causas, e corroborada qualitativamente** por Kleber (que já percebe o padrão informalmente, sem conseguir prová-lo).
+
+O depoimento de Iran dá um recorte **mais preciso** do próprio pedido original: não é "assistente conversacional genérico", é especificamente **acesso ao histórico de atendimentos anteriores do mesmo equipamento entre técnicos diferentes** + **busca rápida no manual** — um problema de recuperação de informação concreto, não um chatbot aberto.
 
 Candidatas de IA a levar para o Mapa (sem escolher nenhuma ainda — isso é regra do Encontro 1):
-1. Manutenção preditiva seletiva via telemetria, para as causas com sinal de alerta (valvula/vedação).
-2. Apoio ao diagnóstico de causa raiz nas 3 causas reincidentes (classificação/triagem a partir do relato técnico + histórico do equipamento).
-3. Dimensionamento/alocação de capacidade de atendimento (não é bem "IA generativa", mas é uma leitura de dados que precisa entrar no Mapa como alternativa ao pedido original).
-4. Um módulo de apoio informacional ao técnico (o pedido original) — mas agora como **uma** candidata entre outras, não a resposta automática.
+1. Manutenção preditiva seletiva via telemetria, para as causas com sinal de alerta (válvula/vedação).
+2. Apoio ao diagnóstico de causa raiz nas 3 causas reincidentes (classificação/triagem a partir do relato técnico + histórico do equipamento) — captura sistematizada do que Kleber já sabe tacitamente.
+3. Ferramenta de consulta rápida ao histórico do equipamento + busca no manual, no momento do atendimento — recorte mais preciso do pedido original, ancorado no depoimento de Iran.
+4. Investigar por que o mix está migrando para corretiva (gestão/alocação de manutenção preventiva) — não é bem "IA generativa", mas é uma leitura de dados que precisa entrar no Mapa como alternativa ao pedido original.
 
 Use o notebook `notebook_analise_exploratoria.ipynb` (ou os scripts em `analise/`) para reproduzir, aprofundar ou contestar qualquer um desses números antes de levar ao squad — e lembre de registrar `conjunto.campo` como proveniência de cada célula que vier daqui.

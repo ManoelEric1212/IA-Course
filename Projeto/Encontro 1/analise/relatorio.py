@@ -12,6 +12,8 @@ from analise import (
     contaminacao_por_ambiente,
     alerta_telemetria_antes_de_corretiva,
     panorama_garantia,
+    indicador_painel_oficial,
+    mix_tipo_ordem_por_mes,
 )
 
 
@@ -28,13 +30,27 @@ def main() -> None:
     avisos = validar_integridade(dados)
     print("nenhum desvio encontrado." if not avisos else "\n".join(f"- {a}" for a in avisos))
 
-    linha("HIPOTESE 1 — 'tempo medio de atendimento subiu'")
+    linha("HIPOTESE 1 — 'tempo medio de atendimento subiu' (C0-05 / C1-02)")
+    print("indicador oficial do painel (C1-02) reproduzido a partir de D3 — media sobre TODAS as ordens:")
+    painel = indicador_painel_oficial(dados)
+    print(painel)
+    print("(valores oficiais do painel: 3.4, 3.7, 3.9, 3.8, 3.7, 4.2, 4.2, 3.8, 4.3, 4.4, 4.2, 4.5 — media 4.0h)")
+
+    print("\nmix de tipo_ordem por mes (proporcao):")
+    proporcao, duracao_por_tipo = mix_tipo_ordem_por_mes(dados)
+    print(proporcao)
+    print("\nduracao media por tipo_ordem e mes (estavel dentro de cada tipo?):")
+    print(duracao_por_tipo)
+    print("\nleitura: a duracao de CADA tipo de ordem fica estavel no tempo (corretiva ~5.6-6.1h,")
+    print("preventiva ~2.4-2.6h, inspecao ~1.3-1.4h o tempo todo). O que sobe e a PROPORCAO de")
+    print("corretivas no mix (36.9% -> 59.0%), que subtrai espaco de preventivas (35.2% -> 23.0%).")
+    print("Como corretiva demora ~2.4x mais que preventiva, essa mudanca de mix explica")
+    print("mecanicamente a subida do indicador do painel — nao e atendimento mais lento.")
+
+    print("\n(para referencia: analise anterior, so sobre corretivas)")
     tendencia = tendencia_duracao_e_volume(dados)
     print(tendencia)
-    print(f"\ninclinacao da duracao media (h/mes): {tendencia.attrs['inclinacao_horas_por_mes']}")
     print(f"crescimento do volume de corretivas (ultimo mes / primeiro mes): {tendencia.attrs['crescimento_volume']}x")
-    print("leitura: duracao por atendimento quase plana; volume triplicou. Gargalo de capacidade")
-    print("e candidato mais forte que 'atendimento individual mais lento'.")
 
     linha("HIPOTESE 2 — 'entraram tecnicos sem experiencia na serie CP'")
     tecnicos = perfil_tecnicos(dados)
