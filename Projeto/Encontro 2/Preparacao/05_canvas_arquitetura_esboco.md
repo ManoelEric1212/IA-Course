@@ -23,7 +23,6 @@
  últimas ordens do         3 trechos mais próximos
  equipamento: data,        da pergunta + nº da seção
  peças, causa corrigida
-          │ ⚠ R1                 │ ⚠ R2, R3
           └──────────┬───────────┘
                      ▼
   [4] LLM REDIGE A RESPOSTA usando SÓ o que veio de [2] e [3],

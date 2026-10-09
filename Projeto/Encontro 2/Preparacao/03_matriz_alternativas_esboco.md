@@ -23,7 +23,7 @@ Monitora a alta de `temp_descarga_maxima` contra a linha de base do próprio equ
 
 | Critério | Avaliação |
 |---|---|
-| **Aderência ao problema** | **Média (C2: subiu de baixa).** Com a causa corrigida pela peça, vedação + válvula passam de 23 para ~92 corretivas (~8,5%) (C2-01, `d3_ordens.pecas_trocadas`). Ainda não cobre elétrica, vazamento e contaminação, as causas que mais reincidem. [M0 tarefa: detecção de anomalia] |
+| **Aderência ao problema** | **Média (C2: subiu de baixa).** Vedação + válvula passam de 23 registradas (2,1% das corretivas) para 46 confirmadas pelo Wagner (4,2%) e ~92 estimadas pela regra da peça (8,5%) (C2-01, `d3_ordens.pecas_trocadas`). O alerta só alcança as que têm telemetria: ~64, ou seja, **5,9% de todas as corretivas** (8,8% das corretivas em equipamentos com módulo, `d1_frota.tem_telemetria`). Nenhuma medição da telemetria avisa elétrica, vazamento ou contaminação, as causas que mais reincidem. [M0 tarefa: detecção de anomalia] |
 | **Dados necessários** | Telemetria diária em 126 de 184 equipamentos (C0-07, C0-08). **(C2)** Os eventos rotulados válidos sobem de 16 para ~59 com telemetria, mas o rótulo exige correção pela peça. [T1.1 disponibilidade] |
 | **Viabilidade** | **Média-alta.** Um limiar simples (alta > 3°C sobre a linha de base) separa 41 de 43 eventos reclassificados, contra 7 de 84 inconclusivos (`d2_telemetria.temp_descarga_maxima`). Dá para começar sem ML. O envio depende da rede do cliente (C0-03). [T1.1 custo, reprodutibilidade] |
 | **Riscos** | Falso alarme (~6–8% nos grupos sem sinal) gera visita desnecessária. Dia de transmissão incompleta perde o sinal. 32% da frota fica de fora. [T2.2 cascading error: alerta errado → visita errada] |
