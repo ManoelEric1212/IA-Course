@@ -82,5 +82,8 @@ Pronto quando:
 
 Orçamento de perguntas: **3** (consumido mesmo por pergunta mal formulada; não acumula do E1). Sem resposta → "a empresa vai verificar" → registrar como incerteza.
 
+## Entregue pelo Squad 5
+Versão entregue em 08/10/2026 (`Projeto/Encontro 2/Artefatos/`), transcrita e validada em `entregaveis-e2-squad5.md`. Os esboços de preparação ficam em `Projeto/Encontro 2/Preparacao/` e são mais completos que o entregue em vários pontos.
+
 ## Ponte para o Encontro 3
 A Decisão e o Canvas viram entrada da Matriz de Teste (KIT-011). Lá, o critério de sucesso é fixado **antes** de rodar o notebook no Colab. Por isso, os critérios de teste das hipóteses precisam chegar ao fim do E2 com número, linha de base e horizonte definidos. Pré-requisito do E3: M3 (Data Centric), M4 (Edge) e M5 (Explainable) concluídos.
