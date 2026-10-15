@@ -1,6 +1,6 @@
 # Fundamentos de IA Aplicada
 
-Repositório pessoal de estudo de dois cursos complementares — **Fundamentos de IA Aplicada** (três módulos teóricos, M0/M1/M2) e **Condução de Projetos** (cinco unidades de gestão de PD&I industrial, B2–B6) — e um projeto prático em squad (caso **Aroeira**), estruturado em 3 encontros presenciais, que aplica o conteúdo dos dois cursos.
+Repositório pessoal de estudo de dois cursos complementares — **Fundamentos de IA Aplicada** (quatro módulos teóricos, M0/M1/M2/M3) e **Condução de Projetos** (cinco unidades de gestão de PD&I industrial, B2–B6) — e um projeto prático em squad (caso **Aroeira**), estruturado em 3 encontros presenciais, que aplica o conteúdo dos dois cursos.
 
 ## Estrutura
 
@@ -9,6 +9,7 @@ Repositório pessoal de estudo de dois cursos complementares — **Fundamentos d
 ├── INTRODUÇÃO A IA/        # M0 — Introdução a IA
 ├── IA GENERATIVA/          # M1 — IA Generativa
 ├── IA Agentic/             # M2 — IA Agentic
+├── Data Centric IA/        # M3 — Data-centric AI
 ├── COnducao de projetos/   # Curso Condução de Projetos (B2–B6)
 ├── Projeto/                # Caso prático Aroeira (Encontros 1, 2 e 3)
 └── .claude/skills/         # Bases de conhecimento usadas pelo Claude Code neste repo
@@ -22,6 +23,9 @@ Aulas 1–3 (PDF), guia e exemplo em Colab, notebook `IA_010.ipynb`, anotações
 
 ### M2 — IA Agentic (`IA Agentic/`)
 Aulas 1–3 (PDF), glossário, notebook `IA_018.ipynb`, anotações (`anotações.md`) e os templates: Matriz de Decisão (workflow x agente) e Matriz de Modo de Falha.
+
+### M3 — Data-centric AI (`Data Centric IA/`)
+Aulas 1 e 3 (e-books), Aula 2 (guia do notebook), glossário, notebook `IA_025.ipynb` (error analysis por slices no Adult Income) e o template T3.1 Matriz de Decisão Dados x Modelo. Conceitos: dados como teto de qualidade, seis dimensões de data quality, error analysis por slices, taxonomia de vieses, árvore dados x modelo, dados sintéticos e regime regulatório do dataset (LGPD, GDPR, EU AI Act).
 
 ### Condução de Projetos (`COnducao de projetos/`)
 Curso complementar sobre gestão de projetos de PD&I industrial em IA (programa Industr.IA — Residência em TIC 49), em 5 unidades (cada uma com e-book, glossário e templates oficiais CDP-0xx):
@@ -53,7 +57,7 @@ Decisão vigente ao fim do Encontro 2: um **assistente conversacional somente le
 
 ### `.claude/skills/`
 Skills do Claude Code que encapsulam o conhecimento dos cursos e do projeto para uso assistido:
-- `fundamentos-ia-aplicada`: base conceitual dos módulos M0/M1/M2, usada para responder, revisar ou propor desafios e preencher os templates oficiais.
+- `fundamentos-ia-aplicada`: base conceitual dos módulos M0/M1/M2/M3, usada para responder, revisar ou propor desafios e preencher os templates oficiais.
 - `conducao-de-projetos`: base conceitual das unidades B2–B6 do curso Condução de Projetos, usada para preencher/revisar os templates CDP-0xx e para aprofundar com teoria formal as decisões do Projeto Aroeira.
 - `projeto-aroeira`: dossiê do caso Aroeira (camadas 0–2), resumo dos 3 encontros e entregáveis do Squad 5, usada para apoiar o preenchimento dos instrumentos (KIT-0xx) e a preparação de cada encontro — referencia `conducao-de-projetos` para a base teórica de cada instrumento.
 

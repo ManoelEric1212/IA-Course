@@ -2,7 +2,7 @@
 
 Fonte: e-book `Dados em PDI INdustrial/Aula 1.pdf` (CDP-024) + `Resumo.txt` (CDP-025 Plano de aquisição de dados, CDP-026 Mapa de governança e regulatório) + `Glossário.pdf`.
 
-Premissa do bloco: o repertório técnico de data quality, error analysis e análise de viés (módulo M3 do curso base) é **necessário mas não suficiente** para conduzir o eixo de dados de um projeto industrial. O que falta — e o que este bloco acrescenta — é a articulação dessas competências com **cronograma, custo, dependências externas e regime regulatório**.
+Premissa do bloco: o repertório técnico de data quality, error analysis e análise de viés (módulo M3 do curso base, ver `fundamentos-ia-aplicada/references/data-centric.md`) é **necessário mas não suficiente** para conduzir o eixo de dados de um projeto industrial. O que falta — e o que este bloco acrescenta — é a articulação dessas competências com **cronograma, custo, dependências externas e regime regulatório**.
 
 Fato empírico estruturante: o eixo de dados é a fonte mais frequente de atraso e de descalibragem de expectativa em projetos de IA industrial (Sambasivan et al., "cascatas de dados" — equipes subinvestem no trabalho de dados porque ele é percebido como preparação, não entrega; o custo aparece tarde, composto). Diferença de postura (ecoa B1): na régua da pesquisa, o dataset é ponto de partida (alguém já o construiu); na régua do PD&I industrial, **o dataset é um entregável intermediário do próprio projeto**, com dono, prazo, custo e qualidade a negociar.
 
