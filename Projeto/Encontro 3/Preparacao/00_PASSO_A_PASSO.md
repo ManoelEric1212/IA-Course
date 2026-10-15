@@ -2,6 +2,7 @@
 
 > 15/10/2026, 17:00–21:00, 240 min. Pergunta do dia: **"A escolha se sustenta?"**
 > Fontes: apresentação do E3, camadas 0 a 3 do dossiê, dados D1–D4 e nossos artefatos do E1 e do E2. Nada aqui vem de gabarito.
+> Reforços tirados do curso de Condução de Projetos: B4 (prontidão de fonte, linhagem), B5 (plano de validação, modo sombra, gatilho com dono) e B6 (defesa em 6 elementos, uso fora de escopo).
 
 ## As 4 regras (valem o encontro inteiro)
 1. **Toda célula diz de onde veio:** código do dossiê (C0, C1, C2, C3), `conjunto.campo` e, hoje, **qual saída do notebook**.
@@ -46,14 +47,14 @@ Dica: comecem pela C3-01 e pela C1-01 (quem decide a garantia, quem contesta, qu
 Cada sub-time preenche: **hipótese a testar**, **evidência necessária** e **forma de teste**.
 
 Nossa proposta:
-- **Hipótese:** H1 do E1, o alerta de telemetria para vedação/válvula, agora medido com a **causa corrigida pela peça** (C2-01) e considerando o lote novo (C3-02). É a única com dados para testar hoje; o manual do RAG não existe.
+- **Hipótese:** H1 do E1, o alerta de telemetria para vedação/válvula, agora medido com a **causa corrigida pela peça** (C2-01) e considerando o lote novo (C3-02). É a única com dados para testar hoje; o manual do RAG ninguém do squad viu (o Iran diz que tem "o manual inteiro no celular", C1-03).
 - **Confirma:** falhas de vedação/válvula precedidas de alta de `temp_descarga_maxima` sobre a base do próprio equipamento, **nos dois períodos** (antes e depois de jun/26).
 - **Refuta:** alerta que dispara igual nas demais falhas, ou sinal que some depois de jun/26.
 - **Forma:** prática, no notebook, que roda no Colab gratuito.
 
 **Perguntas (no máximo 3):**
 1. Lacuna declarada pela C3-02: "Em que data o lote novo da VS-212 chegou a cada planta?"
-2. Das perguntas que sobraram do E2, só as que ainda mudam a decisão (ex.: o manual da série CP existe em formato digital?).
+2. Das perguntas que sobraram do E2, só as que ainda mudam a decisão. Prioridade: **"o manual da série CP existe em arquivo digital pesquisável, e quem responde por ele?"** Muda a decisão: sem isso o manual não pode entrar com prazo no dia 90 (ver seção 8).
 3. Guardar a 3ª para uma dúvida que aparecer na hora.
 
 Resposta "a empresa vai verificar" vira **incerteza registrada**.
@@ -62,8 +63,15 @@ Resposta "a empresa vai verificar" vira **incerteza registrada**.
 1. Juntar A e B numa versão só, anotando de qual versão veio cada célula.
 2. **Escrever o critério de sucesso ANTES de rodar.** Rascunho para ajustar à métrica do caminho escolhido:
    > "Medido contra a causa corrigida pela peça, o alerta detecta **≥ 80%** das falhas de vedação/válvula com telemetria válida, **antes e depois de jun/26**, e dispara em **≤ 10%** das demais corretivas. Abaixo disso, o alerta não entra no plano do dia 90 e fica só em modo sombra."
-3. Escolher o **caminho do notebook** (A, B ou C) e escrever o motivo: qual deles testa a H1.
-4. Escrever **por que o teste prático é viável hoje**: dados D2/D3 disponíveis, Colab gratuito, sem GPU.
+   
+   Completar com a **regra de entrada e saída do modo sombra** (B5, plano de validação):
+   > "No modo sombra, o alerta só passa a valer para o técnico depois de **N falhas de vedação/válvula observadas** com os mesmos ≥ 80% e ≤ 10%. Volta para revisão se um dos dois piorar por **duas janelas seguidas**." (Contar em eventos, não em semanas: a falha é rara.)
+3. **Declarar a honestidade do teste:** o limiar de 3°C e o "28 de 28" saíram da nossa análise exploratória **sobre os mesmos dados** que o notebook usa. Escrever na Matriz:
+   > "Hoje o teste confirma a hipótese no histórico. Quem valida de verdade é o modo sombra, com dados posteriores a ago/26."
+   
+   O número que ainda não conhecemos é o **falso alarme**. É ele a resposta para "que número nos faria mudar".
+4. Escolher o **caminho do notebook** (A, B ou C) e escrever o motivo: qual deles testa a H1.
+5. Escrever **por que o teste prático é viável hoje**: dados D2/D3 disponíveis, Colab gratuito, sem GPU.
 
 Pergunta-guia: **"que número, se não aparecer, nos faria mudar a decisão?"** Depois vem o sorteio.
 
@@ -95,13 +103,26 @@ Se o número contrariar o E2, **revisamos a decisão**. Isso conta a favor.
 | Explicabilidade caso a caso | cada alerta mostra "+X°C sobre a base do equipamento"; cada resposta cita OS e manual | atende ao requisito da C3-01? | C3-01, Canvas |
 | Privacidade | `id_tecnico` só como contato, nunca para ranquear | | C0-09 |
 | Viés / cobertura | 32% da frota sem telemetria fica fora do alerta | | `d1_frota.tem_telemetria` |
+| Mudança de base (C3-02) | o sinal de temperatura se mantém, mas a frequência da falha mudou (VS-212 ~2,5× em jun–ago/26) | (notebook, antes × depois) | C3-02, `d3_ordens.pecas_trocadas` |
 
-- **Riscos residuais:**
-  - falha de lote misturada com falha de operação, sem campo de lote (C3-02);
-  - manual indisponível (C1-03);
-  - falso alarme ainda não medido em operação;
-  - a regra peça → causa só foi validada pelo Wagner nas ordens genéricas (C2-01).
-- **Revisar o Canvas:** acrescentar o **registro recuperável** (C3-01) e localizar cada risco na etapa do fluxo.
+Na última linha, a regra da B5: mudança detectada **não** significa mexer no limiar na hora. Primeiro investigar a causa (lote? operação?).
+
+- **Riscos residuais, cada um com dono e gatilho** (B6: risco sem dono e gatilho é só lista; donos a confirmar com o mentor):
+
+| Risco | Dono (C0-12) | Gatilho que reabre a decisão |
+|---|---|---|
+| Falha de lote misturada com falha de operação, sem campo de lote (C3-02) | Simone (dados/TI), com suprimentos | trocas de VS-212 seguem ~2,5× acima da base |
+| Manual indisponível (C1-03) | Wagner / Nelson | sem arquivo até o milestone combinado → plano B (link para a seção do PDF) |
+| Falso alarme ainda não medido em operação | Squad + Wagner | acima do critério na janela do modo sombra |
+| Regra peça → causa validada só nas ordens genéricas (C2-01) | Wagner | divergência numa amostra das ordens não genéricas |
+
+- **Revisar o Canvas:** acrescentar o **registro recuperável** (C3-01) e localizar cada risco na etapa do fluxo. O registro precisa permitir **reconstruir um alerta específico** (B5). Para cada alerta ou resposta, guardar:
+  - versão da regra e do limiar;
+  - janela de telemetria usada e base do equipamento;
+  - OS e trecho do manual citados;
+  - causa **original** e causa **corrigida**, sem sobrescrever a original (linhagem, B4).
+  
+  Exemplo para mostrar: EQ-0129, +4,5°C sobre a base, OS-001537.
 
 ## 7. Fechamento das matrizes (02:50–03:00)
 - [ ] Critério de sucesso definido antes do teste
@@ -114,8 +135,17 @@ Depois vem o sorteio.
 ## 8. Proposta Técnica Final (03:00–03:25), integração sem texto novo
 1. **Problema em 1 frase** (do Mapa do E1).
 2. **Abordagem** escolhida e justificada (Decisão do E2).
-3. **Arquitetura:** dados e validação, citando o Canvas.
-4. **Próximos passos:** riscos e o que viria na residência.
+3. **Arquitetura:** dados e validação, citando o Canvas. Separar o que tem prazo do que é investigação (B4, prontidão de fonte):
+   - **o dia 90 garante o histórico com causa corrigida** (D3 já vimos e rodamos);
+   - **o manual vira verificação com data e plano B**, porque ninguém do squad viu o arquivo (premissa 2 da Decisão).
+4. **Uso pretendido e fora de escopo** (uma linha, no espírito do Model Card da B6):
+   > "Uso pretendido: o técnico consultar o histórico e o manual e ver alertas de vedação/válvula. **Fora de escopo:** servir de base para negar garantia e avaliar ou ranquear técnicos (`id_tecnico`)."
+5. **Próximos passos:** riscos e o que viria na residência. São os artefatos das B4–B6, só citados, não feitos hoje:
+   - modo sombra com plano de validação;
+   - matriz de avaliação contínua com gatilho e destinatário;
+   - runbook;
+   - model card e datasheet;
+   - pedido de **campo de lote/fornecedor** no D3.
 
 - [ ] Integra problema até validação de forma coerente
 - [ ] Arquitetura com referência ao Canvas
@@ -129,14 +159,21 @@ Depois vem o sorteio. Se o tempo apertar, é a profundidade da Proposta que cede
 | Tempo | Bloco | Rascunho | Quem fala |
 |---|---|---|---|
 | 30 s | Problema | "A reincidência de corretivas cresce porque o histórico do equipamento não acompanha a troca de técnico e a causa registrada não é confiável. É isso que puxa o tempo médio do painel." | |
-| 60 s | Abordagem | Assistente de consulta somente leitura (histórico com causa corrigida + manual) no dia 90; alerta de telemetria em sombra; abrir OS e pedir peça só depois. Workflow, não agente. | |
+| 60 s | Abordagem | Assistente de consulta somente leitura (histórico com causa corrigida + manual) no dia 90; alerta de telemetria em sombra; abrir OS e pedir peça só depois. Workflow, não agente. **Custo assumido:** "abrimos mão de abrir OS e pedir peça no dia 90, e 32% da frota sem telemetria fica sem alerta." | |
 | 60 s | Justificativa | Prazo e verba (C2-02); auditoria caso a caso (C3-01); evidência da C2-01. | |
-| 60 s | Validação, riscos, próximos passos | Número do teste + o que ele não mostra; riscos (lote VS-212, manual, falso alarme); o que vem depois. **Sem esconder risco.** | |
+| 60 s | Validação, riscos, próximos passos | Número do teste + o que ele não mostra; riscos (lote VS-212, manual, falso alarme); o que vem depois. **Sem esconder risco.** **Plano de revisão:** "o alerta volta para revisão se recall ou falso alarme piorar por duas janelas no modo sombra; se a empresa criar o campo de lote, revisamos a leitura de causa raiz." | |
+
+A ordem segue os 6 elementos de defesa da B6: premissa → alternativas → eixos → decisão **com custo** → riscos residuais → **plano de revisão**. Os dois em negrito eram os que faltavam.
 
 **Defesa curta:** a bancada pergunta **o que a proposta não resolve**. Cada resposta aponta o artefato:
 - falha de lote → C3-02 + Matriz de Validação;
 - equipamentos sem telemetria → `d1_frota` + riscos;
-- manual que não existe → premissa da Decisão.
+- manual que ninguém viu → premissa da Decisão + plano B na Proposta.
+
+**A Tereza vai estar na sala.** Resposta pronta para o PG-0518:
+> "A solução não decide cobertura. No EQ-0129 ela mostraria +4,5°C sobre a base do equipamento, o que é assinatura de vedação, mas **não afirma uso fora de especificação**. Usar o alerta para negar garantia está fora de escopo, e cada saída fica registrada para recuperar depois."
+
+**Limitação × erro (B6):** a premissa de "taxa estável" da C2-01 caiu de fato com a C3-02. Isso não se minimiza: dizer que caiu, onde está registrado e o que muda. Conta a favor.
 
 Depois vem o sorteio. O ensaio cronometrado é fora da sala.
 
@@ -146,6 +183,7 @@ Formato: **"Quando ___, decidimos ___, porque ___ (Encontro ___, artefato ___)."
 - Quando a verba é para um formato, entregamos o formato com o motor mais auditável, porque a decisão alimenta a garantia (E2, Matriz/Decisão).
 - Quando um número sustenta a decisão, escrevemos o corte antes de calcular (E3, Matriz de Teste).
 - Quando chega informação nova, registramos a célula que caiu em vez de reescrever o passado (E2 e E3, Decisão).
+- Quando uma fonte só existe por relato (o manual), não comprometemos prazo nela, porque fonte não verificada só sustenta investigação (E3, Proposta).
 
 **Faríamos diferente:** citar a matriz do curso base em cada célula desde o E2 e desenhar o Canvas como diagrama.
 
