@@ -5,7 +5,26 @@ description: Base de referência do projeto prático "Laboratórios de decisão 
 
 # Projeto Aroeira — Laboratórios de decisão técnica (Formação 1)
 
-Esta skill cobre a trilha prática do curso: um projeto de squad, sobre um caso único e fictício (Aroeira Equipamentos Industriais, fabricante de compressores industriais), distribuído em 3 encontros presenciais de 4h. É complementar à skill `fundamentos-ia-aplicada` (que cobre o conteúdo dos módulos M0/M1/M2 do curso base) — aqui o foco é a aplicação prática desse conteúdo a um caso concreto, com instrumentos formais de decisão a preencher.
+Esta skill cobre a trilha prática do curso: um projeto de squad, sobre um caso único e fictício (Aroeira Equipamentos Industriais, fabricante de compressores industriais), distribuído em 3 encontros presenciais de 4h. É complementar a duas outras skills: `fundamentos-ia-aplicada` (conteúdo técnico de IA dos módulos M0/M1/M2) e `conducao-de-projetos` (arcabouço de gestão de projetos de PD&I industrial, unidades B2–B6, do curso "Condução de Projetos") — aqui o foco é a aplicação prática desse conteúdo a um caso concreto, com instrumentos formais de decisão a preencher.
+
+### Correspondência entre os instrumentos do kit (KIT) e o curso teórico de Condução de Projetos (CDP)
+Cada instrumento do laboratório tem equivalente formal, com mais profundidade teórica e exemplos industriais, em `conducao-de-projetos/references/`. Vale consultar o CDP correspondente ao ajudar a preencher, revisar ou defender um instrumento do squad:
+
+| Encontro | Instrumento do kit (KIT) | Unidade/arquivo em `conducao-de-projetos` |
+|---|---|---|
+| E1 | Mapa Técnico do Problema | B2 — Ficha de Escopo de Projeto |
+| E1 | Hipótese Técnica | B2 (restrições/premissas) + B3 — Ficha de Hipóteses e Experimentos |
+| E1 | Acordo de Squad | B2 — Cronograma com Gates (papéis, rodízio, decisão) |
+| E2 | Matriz de Alternativas | B3 — Matriz de Alternativas Técnicas (as mesmas 5 dimensões) |
+| E2/E3 | Decisão Justificada | B3 — Ficha de Decisão build/buy/integrate (6 eixos) |
+| E2/E3 | Canvas de Arquitetura Conceitual | B3 — Canvas pelas 5 lentes (Data Centric/Explainable/Generativa/Agentic/Edge) |
+| E3 | Matriz de Teste | B5 — Plano de Validação e Teste (critério a priori, shadow deployment) |
+| E3 | Matriz de Validação | B5 — Matriz de Avaliação Contínua (gatilho + destinatário) |
+| E3 | Roteiro de Pitch / defesa curta | B6 — Roteiro de Defesa de Decisão Arquitetural (6 elementos: premissa→alternativas→eixos→decisão/custo→riscos residuais→plano de revisão) |
+| E3 | Mapa de governança e PI | B4 — Mapa de Governança e Regulatório + B3 — Mapa de Fornecedores e PI |
+| — (ainda não exercitado no arco de 3 encontros) | — | B5 — Runbook e Checklist de Prontidão; B6 — Model Card e Datasheet do Dataset (próximo passo natural se a residência avançar além do E3: o `id_tecnico` como dado potencialmente sensível e a exigência de "registro recuperável" da C3-01 já apontam para esses artefatos) |
+
+Quando o pedido for só "preencher o instrumento do squad", usar as referências desta skill (`encontro-1.md`, `encontro-2.md`, `encontro-3.md`) como fonte primária — elas já tropicalizam os critérios de pronto para o arco de 3 encontros. Usar `conducao-de-projetos` quando o pedido for **aprofundar, justificar com mais teoria, ou auditar a coerência** de uma decisão já tomada contra o arcabouço formal do curso (ex.: "os 6 eixos do build/buy/integrate foram todos cobertos na Decisão Justificada?").
 
 ## Estrutura do material até agora
 

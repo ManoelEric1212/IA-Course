@@ -1,0 +1,308 @@
+RESUMO DO MÓDULO — TRANSPARÊNCIA, COMUNICAÇÃO E DEFESA
+Condução de Projetos | Unidade 6 (Bloco B6) — Industr.IA
+Fontes: Aula 1.pdf (ebook CDP-038), Roteiro de status report.pdf (CDP-039),
+Defesa de decisao arquitetural.pdf (CDP-040), Model card.pdf (CDP-041),
+Datasheet do dataset.pdf (CDP-042), Glossario.pdf (CDP-044)
+
+===============================================================================
+VISÃO GERAL
+===============================================================================
+O bloco fecha o curso "pelo lado de fora": tudo que o caderno do projeto
+registrou desde o escopo (B2) até a matriz de avaliação contínua (B5) vira
+matéria-prima para três competências:
+  1. Comunicar progresso e incerteza para múltiplas audiências (CP.B6.C1)
+  2. Defender decisões técnicas perante audiência crítica (CP.B6.C2)
+  3. Produzir artefatos de transparência regulatória e tratar contestabilidade
+     de decisões automatizadas (CP.B6.C3)
+
+Princípio central do bloco: "Um projeto bem conduzido não precisa preparar a
+prestação de contas; ela é o subproduto natural dos registros que a condução
+já produziu."
+
+Caso de exemplo usado em todo o bloco: manutenção preditiva de compressores
+de uma planta química (detecção de anomalias via séries de vibração/
+temperatura, piloto em shadow deployment, inferência em lote on-premise).
+
+===============================================================================
+TÓPICO 1 — COMUNICAÇÃO POR AUDIÊNCIA
+===============================================================================
+Comunicação é tratada como competência de ENGENHARIA (requisitos, projeto e
+teste), não como talento social. PD&I industrial exige várias audiências
+simultâneas e ritmo periódico, ao contrário do regime acadêmico (um público,
+um ritmo de publicação).
+
+Três audiências permanentes + 1 ocasional (mesma evidência, profundidades
+diferentes):
+  • Time técnico do squad → profundidade máxima: métricas por subgrupo
+    (subpopulation slices), traces, decisões em aberto. Cadência contínua
+    (painel) + semanal (report). Responde "o que mudou no sistema e por quê".
+  • Empresa parceira → efeito no negócio: risco, cronograma, dependências.
+    Reports periódicos + gate reviews. Responde "o que muda na operação e o
+    que o projeto precisa de vocês".
+  • Mentor da residência → método: hipóteses, critérios, coerência dos
+    artefatos. Pontos de revisão do percurso.
+  • Stakeholder não técnico → camada executiva do report da parceira: UMA
+    página, sem jargão, decisão pedida explícita.
+
+Regra-chave: adaptar a CAMADA (profundidade/cadência/pergunta) sem adaptar o
+CONTEÚDO. Quando o conteúdo diverge entre audiências, isso é INCONSISTÊNCIA,
+não "comunicação por audiência" — e custa mais caro que notícia ruim a tempo.
+
+STATUS REPORT EM CADÊNCIA FIXA (artefato CDP-039)
+  - 4 campos fixos: o que foi entregue / o que foi aprendido / o que vem a
+    seguir / bloqueios e riscos.
+  - Cadência declarada no início do projeto (semanal/quinzenal) e mantida
+    mesmo sem boa notícia.
+  - Campo "aprendido" distingue o report de lista de tarefas: registra
+    mudança no entendimento (inclusive hipóteses descartadas) e alimenta a
+    revisão de processo dos gates.
+  - Pedido de decisão sempre destacado no TOPO, nunca escondido no meio.
+  - Formato mínimo: 1 página.
+
+SUPERFÍCIE DO INDICADOR
+  Para cada indicador da matriz de avaliação contínua (B5), declarar:
+    (a) o que é contínuo/automático (painel, alerta);
+    (b) o que é narrativo/periódico (report, gate review);
+    (c) quem é o destinatário de cada camada.
+  Sem superfície declarada, todo indicador tende ao painel — e painel que
+  ninguém é obrigado a ler não sustenta decisão nenhuma.
+  Exemplo: drift de vibração = contínuo/time técnico; qualidade da
+  priorização = narrativa semanal/squad; dias de parada evitados =
+  narrativa mensal/parceira.
+
+TRADUÇÃO POR AUDIÊNCIA
+  Mesmo número, leitura diferente: para o squad, "precisão e cobertura";
+  para a parceira, "de 10 inspeções recomendadas, 7 encontram problema real
+  (vs. 3 no critério antigo)". É o caminho de volta da ficha de escopo do B2
+  (negócio → métrica técnica → de novo efeito no negócio).
+
+INCERTEZA HONESTA vs. INDECISÃO PARALISANTE
+  - Incerteza honesta: nomeia o limite de conhecimento + o plano que o
+    enfrenta + o prazo da resposta.
+  - Indecisão paralisante: apresenta o não-saber sem plano nem prazo,
+    transferindo a ansiedade ao interlocutor.
+  Credibilidade não vem de esconder o limite, vem de acompanhá-lo do plano.
+
+ARMADILHA DE POSTURA: comunicar "como quem escreve paper" — acumular
+resultados em silêncio e entregar tudo no final. Consequência: stakeholder
+descobre risco tarde e passa a interpretar silêncio como sinal de problema.
+
+REPORT (fluxo) ≠ GATE REVIEW (comporta): report registra o período sem
+exigir decisão; gate review consome os reports acumulados e produz decisão
+de continuar/pivotar/parar. Report bem escrito torna o gate rápido.
+
+===============================================================================
+TÓPICO 2 — DEFESA DE DECISÃO
+===============================================================================
+Contraste de postura: pesquisador defende ACHADOS (critério: validade);
+engenheiro de PD&I defende DECISÕES (critério: trade-off — por que esta
+alternativa, a este custo, sob estas premissas). Confundir os dois regimes
+produz defesas corretas que não respondem o que foi perguntado.
+
+Ocorre em: gate reviews, pontos de revisão com mentor, e chegada de
+interlocutor novo com poder de veto (cenário mais traiçoeiro — só herda a
+conclusão).
+
+ESTRUTURA CANÔNICA — 6 ELEMENTOS (ORDEM IMPORTA, é parte do argumento):
+  1. Premissa — o que se assume verdadeiro e de onde vem (ficha de escopo,
+     acordo de dados, resultado de experimento).
+  2. Alternativas consideradas — ao menos 2 opções reais, tratadas a sério
+     (não espantalhos).
+  3. Eixos de avaliação — declarados ANTES do veredito, os mesmos da matriz
+     de alternativas do B3. Eixo inventado depois da escolha = racionalização.
+  4. Decisão tomada — a escolha + o custo assumido. Decisão sem custo
+     declarado é propaganda.
+  5. Riscos residuais — o que fica em aberto, com dono e gatilho.
+  6. Plano de revisão — condição e gate que reabrem a decisão.
+
+Por que começar pela premissa: defesa que começa pela DECISÃO soa como
+preferência buscando justificativa (convida a atacar a conclusão). Defesa
+que começa pela PREMISSA conduz a audiência pelo caminho do squad e
+transforma questionamento em revisão de etapas.
+
+Cada elemento tem endereço no caderno (auditável):
+  premissa → ficha de escopo + acordo de dados
+  alternativas/eixos → matriz de alternativas técnicas + ficha build/buy/
+    integrate (B3)
+  riscos residuais → matriz de risco (B2) + plano de validação e teste (B5)
+  plano de revisão → cronograma de gates
+
+PREPARAÇÃO (2 movimentos):
+  1. Antecipar perguntas por audiência: gestor da parceira ataca custo/prazo;
+     engenheiro sênior ataca premissa técnica e eixo ausente; mentor audita
+     coerência entre decisão e artefatos. Pergunta sem artefato = lacuna a
+     fechar ANTES da reunião.
+  2. Ensaio com o próprio squad como audiência crítica, alguém atacando a
+     premissa de verdade.
+
+POSTURA DIANTE DO QUESTIONAMENTO — duas distinções:
+  - Defender ≠ ser inflexível: o plano de revisão já declara as condições
+    de mudança de posição; ceder diante de evidência prevista é o processo
+    funcionando.
+  - Reconhecer limitação (risco residual já registrado) ≠ admitir erro
+    (premissa era falsa e o processo não detectou). Para erro: reabrir o
+    gate e registrar o que muda nos próximos ciclos (não minimizar).
+
+ARMADILHA DE POSTURA: tratar questionamento como ataque e responder "como
+quem defende tese" (reafirmar com mais ênfase). Cliente não quer vencer o
+debate, quer saber se pode confiar no processo.
+
+REGISTRO PÓS-DEFESA: decisões aceitas voltam para a ficha de decisão com:
+quando foi defendida, para quem, que objeções surgiram, o que foi combinado
+no plano de revisão. Evita "defesa repetida" a cada troca de interlocutor.
+
+Artefato do caderno: roteiro de defesa de decisão arquitetural (CDP-040).
+
+===============================================================================
+TÓPICO 3 — TRANSPARÊNCIA REGULATÓRIA
+===============================================================================
+Pergunta central: o que alguém que NUNCA falou com o squad precisa saber
+para usar, auditar ou contestar o modelo/dados com segurança?
+  - MODEL CARD → responde pela solução (Mitchell et al., 2019)
+  - DATASHEET DO DATASET → responde pelos dados (Gebru et al., 2021)
+Em setores regulados, são a diferença entre entrega auditável e caixa-preta
+bem intencionada.
+
+--- MODEL CARD SIMPLIFICADO (CDP-041) ---
+Campos: identificação e versão; uso pretendido; usos fora de escopo; dados
+de treino e avaliação; métricas com desagregação por slice; limitações e
+vieses conhecidos; condições de revisão.
+"Simplificado" = registra só o que o projeto sustenta com EVIDÊNCIA dos
+próprios artefatos — campo com aspiração é "passivo esperando auditoria".
+
+Par mais importante: USO PRETENDIDO + USOS FORA DE ESCOPO — funciona como
+o "escopo negativo" do B2 voltado para fora. Sem o campo negativo, todo uso
+vira uso implícito e toda falha vira falha do modelo.
+Exemplo compressores: uso pretendido = priorizar inspeções; fora de
+escopo = desligamento automático de equipamento e qualquer decisão sobre
+pessoas (ex.: avaliar desempenho de operadores).
+
+Cada campo tem artefato de origem (rastreável): ficha de escopo, canvas de
+arquitetura, plano de aquisição, mapa de governança, plano de validação,
+matriz de avaliação contínua. Campo sem lastro = invenção; decisão/limitação
+do ciclo que não aparece em campo nenhum = omissão.
+
+--- DATASHEET DO DATASET (CDP-042) ---
+Campos: motivação (por que existe e quem responde por ele); composição
+(cobertura, lacunas, vieses); coleta e pré-processamento; usos recomendados
+e desaconselhados; distribuição e manutenção (responsável nomeado).
+Consolida o plano de aquisição e o mapa de governança do B4 para leitor
+externo.
+Exemplo compressores: 2 anos de séries de vibração/temperatura de 3
+famílias; viés conhecido = sub-representação de partida a frio (cold start)
+e concentração de carga parcial na família maior.
+
+JUSTIFICATIVA ADEQUADA (regra geral dos dois artefatos): alegação ("dois
+anos de dados") não é evidência; o relatório de perfilamento estatístico
+(nulos, cardinalidade, distribuições, vieses) é a evidência técnica
+auditável.
+
+TRANSPARÊNCIA ≠ PUBLICAÇÃO: o nível de detalhe respeita o acordo de dados;
+há campos que circulam só entre as partes ou em versão resumida para
+auditoria — isso é marcado explicitamente no documento (transparência
+devida x confidencialidade contratada não se contradizem).
+
+VERSIONAMENTO E MOMENTO: model card e datasheet carregam a versão do
+modelo/dataset; mudança que atravessa gatilho de retreinamento gera NOVA
+VERSÃO, nunca edição silenciosa. Nascem no cronograma (amarrados ao gate
+que autoriza o piloto), nunca na véspera da entrega final.
+
+COERÊNCIA CRUZADA é testável nos dois sentidos entre os dois documentos
+(ex.: "dados de treino" do card deve bater com "composição" do datasheet,
+na mesma versão). Falha célebre no exemplo: card prometia "alertas em
+tempo real" enquanto canvas/runbook registravam "inferência em lote" — um
+auditor acharia a contradição em minutos.
+
+--- CONTESTABILIDADE DE DECISÕES AUTOMATIZADAS ---
+Definição: capacidade de uma pessoa afetada obter explicação inteligível de
+uma decisão automatizada e contestá-la perante um responsável, com prazo e
+possibilidade de revisão humana.
+
+Quadro normativo:
+  • EU AI Act (Reg. 2024/1689) — art.13: transparência/informação ao
+    deployer de sistema de alto risco; art.86: direito à explicação de
+    decisão individual.
+  • GDPR (Reg. 2016/679), art.22: restringe decisões EXCLUSIVAMENTE
+    automatizadas com efeito jurídico/similar sobre pessoas; exige
+    supervisão humana e canal de contestação.
+  • PL 2338/2023 (Brasil, em tramitação): direitos de informação, explicação,
+    contestação e revisão humana, graduados pelo risco.
+  • LGPD, art.20 (vigente): direito de solicitar revisão de decisão
+    automatizada — SEM exigir revisão por pessoa natural (o parágrafo que
+    previa isso foi VETADO em 2019).
+
+Implicação operacional por norma → vira item de backlog com dono e
+evidência (não fica "para o jurídico da véspera"):
+  EU AI Act → model card/datasheet completos + registro de versão/entrada
+    que reconstrua uma decisão específica.
+  GDPR → supervisão humana desenhada na arquitetura + canal de contestação
+    com responsável e prazo.
+  PL 2338 → triagem regulatória revisitada a cada gate + documentação
+    pronta antes da entrega.
+
+TRIAGEM REGULATÓRIA importa mais que reflexo automático: no caso dos
+compressores, a decisão é sobre MÁQUINAS, não pessoas → art.22 GDPR e
+art.20 LGPD não incidem, não é "alto risco" no EU AI Act. O regime muda se
+a mesma esteira passar a avaliar desempenho de operadores (pessoas) — por
+isso a triagem (do B4) deve ser revisitada a cada gate.
+
+Lição final: contestabilidade não é parágrafo jurídico de rodapé, é
+arquitetura e monitoramento — exige reprodutibilidade operacional (B5) para
+explicar uma decisão específica, e runbook (canal/prazo/responsável) para
+responder contestação.
+
+===============================================================================
+GLOSSÁRIO CONSOLIDADO (CDP-044)
+===============================================================================
+• Comunicação por audiência — adaptar camada (abstração/cadência/pergunta)
+  sem adaptar conteúdo, para squad, parceira, mentor e stakeholder não
+  técnico. Divergência de CONTEÚDO = inconsistência.
+• Contestabilidade (Contestability) — ver seção Tópico 3.
+• Datasheet do dataset — artefato Gebru et al. (2021) que documenta os
+  dados para leitor externo.
+• Defesa de decisão — estrutura de 6 elementos (premissa → alternativas →
+  eixos → decisão/custo → riscos residuais → plano de revisão). Decisão se
+  defende por trade-off; achado, por validade.
+• Incerteza honesta e indecisão paralisante — ver Tópico 1.
+• Leitura executiva — 1 página sem jargão para stakeholder não técnico, com
+  decisão pedida explícita, derivada do report da parceira.
+• Model card simplificado (Model Card) — artefato Mitchell et al. (2019)
+  que documenta o modelo; "simplificado" = só o que há evidência.
+• Plano de revisão — elemento final da defesa: condição + gate que
+  reabrem a decisão; distingue firmeza de inflexibilidade.
+• Registro pós-defesa — linha de contexto na ficha de decisão após defesa
+  aceita (quando, para quem, objeções, combinado). Evita defesa repetida.
+• Status report em cadência fixa — 4 campos (entregue/aprendido/a seguir/
+  bloqueios), cadência fixa mantida mesmo sem boa notícia, decisão no topo.
+• Superfície do indicador — para cada indicador da matriz B5: o que é
+  contínuo/automático vs. narrativo/periódico, e o destinatário de cada
+  camada.
+• Uso pretendido e usos fora de escopo (Intended Use / Out-of-Scope Use) —
+  par do model card que delimita cenários homologados e desaconselhados
+  (escopo negativo do B2 voltado para fora).
+
+===============================================================================
+QUADRO-RESUMO: ARTEFATOS DO BLOCO B6
+===============================================================================
+1. Roteiro de status report (CDP-039) — comunicação periódica por audiência,
+   cadência fixa, 4 campos + superfície do indicador declarada.
+2. Roteiro de defesa de decisão arquitetural (CDP-040) — 6 elementos +
+   preparação por audiência + registro pós-defesa.
+3. Model card simplificado (CDP-041) — transparência sobre o modelo.
+4. Datasheet do dataset (CDP-042) — transparência sobre os dados.
+
+Todos nascem amarrados ao cronograma de gates (nunca escritos de memória,
+na véspera) e são consolidações/traduções do que já foi registrado em
+artefatos anteriores (B2–B5), não documentos escritos do zero.
+
+===============================================================================
+REFERÊNCIAS CITADAS
+===============================================================================
+- MITCHELL, M. et al. Model Cards for Model Reporting. FAccT, 2019.
+  arXiv.org/abs/1810.03993
+- GEBRU, T. et al. Datasheets for Datasets. CACM, v.64 n.12, 2021.
+  arXiv.org/abs/1803.09010
+- UE. Regulamento (UE) 2024/1689 (EU AI Act), arts. 13 e 86.
+- UE. Regulamento (UE) 2016/679 (GDPR), art. 22.
+- Brasil. PL 2338/2023 (Senado Federal, em tramitação).
+- Brasil. LGPD, art. 20 (direito de revisão de decisão automatizada).

@@ -1,0 +1,110 @@
+RESUMO - CDP-025 (Plano de aquisição de dados) e CDP-026 (Mapa de governança e regulatório)
+Condução de Projetos | Unidade 4 | Industr.IA
+
+===========================================================
+TÓPICO
+===========================================================
+
+Os dois documentos formam o par "governança de dados" da Unidade 4 e usam o mesmo
+cenário-modelo como referência:
+- CDP-025: inspeção de linhas de transmissão por drone (distribuidora de energia).
+- CDP-026: previsão de não conformidade sanitária num frigorífico (reaproveita o
+  caso da parte 3 do ebook CDP-024).
+
+CDP-025 - Plano de aquisição de dados
+Decide se e como cada fonte de dados pode ser usada no cronograma do projeto, antes
+de qualquer modelagem. Eixos principais:
+- Prontidão por fonte (escala de nível 1 a 5), sempre lastreada em evidência de
+  perfilamento DATADA. Regra central: "prontidão sem perfilamento é promessa";
+  só níveis 4 e 5 autorizam prazo firme, níveis 1-2 sustentam apenas investigação.
+- Acordo de dados com a fonte/parceira: esquema validado sobre amostra real,
+  responsável nomeado, cadência de entrega e qualidade declarada (que é sempre
+  comparada ao perfilamento, nunca assumida como efetiva).
+- Esforço e custo de anotação: medido por piloto real (não por estimativa de
+  cabeça) e extrapolado com margem para cronograma/orçamento.
+- Dependências com a parceira: cada uma tem risco, mitigação e um gatilho de gate
+  específico que aciona plano B quando a fonte não evolui de nível.
+
+CDP-026 - Mapa de governança e regulatório
+Traduz o regime legal aplicável em tarefas com dono e ponto de verificação. Eixos:
+- Regime aplicável (LGPD, GDPR, EU AI Act): triagem por evidência (ex.: matrícula
+  e turno religam dado a pessoa -> LGPD incide) e não por suposição; o "não incide"
+  também precisa ser registrado, com o gatilho que reabriria a triagem.
+- Base legal por conjunto de dado pessoal: cada conjunto tem sua base (ex.
+  legítimo interesse com teste de balanceamento documentado); consentimento de
+  empregado é descartado por ser frágil/revogável.
+- Obrigações operacionais com responsável e gate (pseudonimização, retenção,
+  direitos do titular) - obrigação sem gate "se cumpre por sorte".
+- Propriedade intelectual dos dados em 4 categorias (brutos, anotados, sintéticos,
+  derivados): cada uma só libera uso/circulação fora do projeto depois de cláusula
+  específica (ex.: rótulos do squad só podem ser reutilizados após cláusula de
+  titularidade e licença de uso).
+- Condições de publicação: definidas junto do acordo de dados (não na véspera da
+  submissão), com janela de revisão da parceira (30 dias) para proteger novidade/
+  patente.
+
+Princípio comum aos dois documentos: afirmação não é justificativa; justificativa
+exige evidência datada + responsável/gate + custo assumido reconhecido.
+
+===========================================================
+QUESTÕES RESPONDIDAS (quiz formativo, 10 questões)
+===========================================================
+
+1) O que o squad pode reutilizar dos rótulos (dados anotados) fora do projeto?
+   Resposta: A - Nada antes de cláusula que fixe a titularidade dos rótulos e a
+   licença de uso; a lista de cláusulas vai ao jurídico como pauta, antes da
+   assinatura.
+
+2) Qual registro constitui evidência de perfilamento adequada para sustentar a
+   prontidão de uma fonte?
+   Resposta: A - Perfilamento de 12/05 sobre amostra de 2.000 imagens: 14% sem
+   metadado de trecho, resolução heterogênea, 3% de duplicatas.
+
+3) Ordens de serviço no nível 2 de prontidão (existência confirmada, sem
+   perfilamento): que compromisso de cronograma isso autoriza?
+   Resposta: C - Apenas cronograma de investigação, com milestone de verificação
+   e plano B, porque prontidão sem perfilamento é promessa, não evidência.
+
+4) Por que priorizar legítimo interesse (art. 7º, IX da LGPD) em vez de
+   consentimento dos colaboradores para os registros de inspeção?
+   Resposta: D - Consentimento de empregado é frágil e revogável por operador; o
+   legítimo interesse sustenta o tratamento, ao custo assumido do teste de
+   balanceamento.
+
+5) Qualidade declarada de 90% de cobertura dos trechos desde 2023: que conduta
+   técnica essa especificação autoriza?
+   Resposta: B - Comparar a declaração com o perfilamento e tratar divergência
+   como fato registrado, com tratamento no gate.
+
+6) Triagem aponta incidência da LGPD: qual evidência, obrigação e gate sustentam
+   essa conclusão?
+   Resposta: C - Matrícula e turno ligam registros a operadores identificáveis;
+   obrigação de base legal por conjunto e pseudonimização antes do treino,
+   verificada no gate 2.
+
+7) Por que as 110 horas de anotação (10.000 imagens x 40s) entram no plano em vez
+   de uma estimativa de cabeça?
+   Resposta: A - Porque o número vem de piloto medido (60 imagens, dois técnicos),
+   e a aritmética do piloto muda cronograma e orçamento antes da assinatura.
+
+8) Como o mapa registra corretamente a não incidência do GDPR no cenário do
+   frigorífico?
+   Resposta: B - Registrando o que foi verificado (sem titulares, planta ou
+   cliente europeu) e o gatilho que reabre a triagem, com revisão por gate.
+
+9) Por que as condições de publicação (janela de 30 dias) são definidas junto do
+   acordo de dados, no início do projeto, e não na véspera da submissão?
+   Resposta: C - Porque negociada cedo, a publicação vira condição registrada ao
+   custo de uma reunião; descoberta tarde, a restrição vira renegociação
+   enfraquecida com o manuscrito pronto.
+
+10) Qual dependência ameaça diretamente o prazo firme do fluxo semanal de
+    imagens, e qual o gatilho de gate registrado?
+    Resposta: D - A liberação do canal recorrente de imagens, com o gatilho
+    registrado: fonte ainda no nível 3 no gate 2 aciona revisão de escopo.
+
+===========================================================
+FONTES
+===========================================================
+- "PLano de aq de Dados.pdf" (CDP-025)
+- "Mapa de gov regulatória.pdf" (CDP-026)

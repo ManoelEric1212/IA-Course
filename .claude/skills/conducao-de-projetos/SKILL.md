@@ -1,0 +1,34 @@
+---
+name: conducao-de-projetos
+description: Base de conhecimento do curso "Condução de Projetos" (Industr.IA, Residência em TIC 49) — o arcabouço teórico de gestão de projetos de PD&I industrial em IA, em 5 unidades (B2 Escopo e Fundamentos, B3 Decisão de Solução e Arquitetura, B4 Dados em PD&I Industrial, B5 Operação/MLOps e Ciclo de Vida, B6 Transparência/Comunicação/Defesa), extraída fielmente dos e-books, glossários e templates do curso. Use esta skill sempre que o usuário pedir para preencher/revisar um dos templates oficiais CDP-0xx (Ficha de Escopo, Matriz de Stakeholders, Cronograma com Gates, Matriz de Risco, Ficha de Hipóteses e Experimentos, Matriz de Alternativas Técnicas, Ficha de Decisão build/buy/integrate, Canvas de Arquitetura Conceitual, Mapa de Fornecedores e PI, Plano de Aquisição de Dados, Mapa de Governança e Regulatório, Plano de Validação e Teste, Matriz de Avaliação Contínua, Checklist de Prontidão, Runbook, Roteiro de Status Report, Roteiro de Defesa de Decisão Arquitetural, Model Card, Datasheet do Dataset), explicar/revisar um conceito de condução de projetos (gate review, milestone, prontidão de fonte, build/buy/integrate, as cinco lentes aplicadas à arquitetura, débito técnico de ML, drift de dados x de conceito, contestabilidade, LGPD/GDPR/EU AI Act aplicados a dados de projeto), ou mencionar qualquer uma das 5 unidades/blocos (B2–B6) por nome. É o arcabouço teórico que sustenta tecnicamente os instrumentos do laboratório prático "Projeto Aroeira" (ver skill `projeto-aroeira`) — use em conjunto quando o pedido envolver justificar, defender ou aprofundar uma decisão do squad com a teoria de condução de projetos.
+---
+
+# Condução de Projetos — base de conhecimento do curso (Industr.IA)
+
+Curso complementar ao `fundamentos-ia-aplicada` (M0/M1/M2): enquanto aquele cobre o conteúdo técnico de IA, este cobre **como conduzir um projeto de PD&I industrial em IA** do escopo à defesa final — a camada de gestão, decisão, dados, operação e comunicação que envolve qualquer um desses projetos. É o arcabouço teórico de apoio ao **Projeto Aroeira** (skill `projeto-aroeira`): cada instrumento do laboratório presencial (KIT-0xx) tem um ou mais equivalentes formais neste curso (CDP-0xx), com objetivo de competência explícito (CP.Bx.Cx) e, em geral, mais profundidade teórica e mais exemplos industriais comentados.
+
+## Estrutura do material
+
+| Unidade | Arquivo | Conteúdo |
+|---|---|---|
+| **B2 — Escopo e Fundamentos de Gestão de Projetos** | `references/b2-escopo-fundamentos.md` | Tradução de problema de negócio em problema técnico (sintoma×causa, restrições, premissas); Ficha de Escopo; Matriz de Stakeholders; milestones e Cronograma com Gates (continuar/pivotar/parar); Matriz de Risco (5 categorias) e 4 estratégias (evitar/mitigar/transferir/aceitar) |
+| **B3 — Decisão de Solução e Arquitetura** | `references/b3-decisao-arquitetura.md` | Hipótese técnica → experimento mínimo → Matriz de Alternativas (5 dimensões) → decisão build/buy/integrate (6 eixos, árvore de decisão); arquitetura conceitual pelas 5 lentes do curso base (Data Centric, Explainable, Generativa, Agentic, Edge) com ordem típica e teste de coerência cruzada; fornecedores (5 categorias), PI de modelo (modelo derivado) e de dados, vendor lock-in |
+| **B4 — Dados em PD&I Industrial** | `references/b4-dados-pdi-industrial.md` | Prontidão de fonte (5 níveis); Acordo de Dados; custo de anotação por piloto; catálogo de dados (dono/curador); versionamento de dataset; rastreabilidade de transformações (linhagem); dados sensíveis (anonimização x pseudonimização); regimes LGPD/GDPR/EU AI Act; PI de dados em 4 categorias; publicação acadêmica |
+| **B5 — Operação, MLOps e Ciclo de Vida** | `references/b5-operacao-mlops.md` | Entrega pontual x continuada; ciclo de vida do modelo (6 fases); shadow deployment x canário; MLOps essencial (versionamento, pipeline de dados, retreinamento, monitoramento — drift de dados x de conceito, registro de experimentos, orquestração); débito técnico de ML (Sculley et al., 5 formas); Runbook e Checklist de prontidão |
+| **B6 — Transparência, Comunicação e Defesa** | `references/b6-transparencia-comunicacao-defesa.md` | Comunicação por audiência (squad/parceira/mentor/stakeholder); status report em cadência fixa; defesa de decisão (6 elementos canônicos); Model Card e Datasheet do Dataset; contestabilidade de decisões automatizadas (EU AI Act, GDPR, LGPD, PL 2338) |
+
+Cada arquivo de referência preserva glossários, quadros/tabelas e exemplos aplicados do material original, e termina com uma tabela de **correspondência com o kit de laboratório** (Projeto Aroeira) — útil para saber a que altura da Formação 1 cada conceito já apareceu em prática.
+
+## Como as unidades se encadeiam (cadeia de coerência do curso)
+
+B2 (escopo/risco) → B3 (decisão de solução + arquitetura, 5 lentes) → B4 (dados: aquisição, governança, regulatório) → B5 (operação, MLOps, ciclo de vida) → B6 (comunicação, defesa, transparência regulatória). Cada unidade **lê** artefatos da anterior e **alimenta** a seguinte — ao responder uma pergunta que cruza unidades (ex.: "como a decisão de arquitetura afeta o runbook?"), vale a pena ler as duas referências envolvidas.
+
+## Como usar esta skill
+
+**Para preencher/revisar um template CDP-0xx**: a estrutura completa de campos, a justificativa esperada por célula e um exemplo de preenchimento comentado estão na seção correspondente do arquivo de referência da unidade — use o exemplo como padrão de nível de detalhe (justificativa = evidência + conexão com o cenário + custo assumido reconhecido), nunca aceitar "alto/baixo" sozinho como preenchimento.
+
+**Para justificar ou aprofundar uma decisão do Projeto Aroeira com a teoria do curso**: localize o instrumento do kit na tabela de correspondência de cada arquivo (ex.: Decisão Justificada do E2 ↔ Ficha de Decisão build/buy/integrate + Canvas, B3) e aplique os eixos/estrutura formal daquele CDP para enriquecer ou auditar o que o squad já produziu — sem reescrever o que já foi decidido em sala, apenas checar coerência com a estrutura do curso.
+
+**Para explicar um conceito isolado** (gate, prontidão de fonte, drift de conceito, modelo derivado, contestabilidade etc.): localizar a definição exata (glossário em caixa) no arquivo da unidade correspondente e citar literalmente — os documentos preservam a redação/definição original do material, que é mais precisa que paráfrase.
+
+**Atenção a uma diferença de fonte entre unidades**: B2 foi reconstruído a partir das *anotações do aluno* (`ANOTAÇÕES.md`), não do e-book oficial em PDF (que não está na pasta) — o conteúdo é fiel ao que está anotado, mas pode ter lacunas de redação que os e-books das demais unidades (B3, B4, B5, B6) não têm, já que esses foram lidos na íntegra a partir do PDF/resumo oficial.

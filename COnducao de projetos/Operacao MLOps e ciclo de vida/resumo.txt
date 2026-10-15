@@ -1,0 +1,286 @@
+RESUMO - UNIDADE 5: OPERAÇÃO, MLOPS E CICLO DE VIDA
+Condução de Projetos | Prof. Raimundo Valter | Industr.IA
+=============================================================
+
+Artefatos analisados: Aula 1 (e-book), Glossário, Plano de validação e teste
+(CDP-031), Matriz de avaliação contínua (CDP-032), Checklist de prontidão
+para produção (CDP-033), Runbook mínimo de operação (CDP-034).
+
+IDEIA CENTRAL DO BLOCO
+-----------------------
+O bloco trata do intervalo que mais separa o engenheiro de PD&I industrial
+do pesquisador: o que acontece DEPOIS que o modelo funciona. A premissa é
+que projetos tecnicamente bons fracassam não na métrica do teste, mas no
+terceiro mês de operação, quando ninguém monitora o sistema. Caso usado
+como fio condutor: manutenção preditiva dos compressores de uma planta
+química, com inferência local (on-premises) na planta.
+
+1. ENTREGA PONTUAL x ENTREGA CONTINUADA
+-----------------------------------------
+- Entrega pontual: termina no aceite do artefato (relatório, protótipo).
+- Entrega continuada: o artefato é um sistema que segue operando sobre
+  dados que mudam, com responsabilidade declarada por monitoramento,
+  resposta a falhas e retreinamento. Exige orçar horas de operação
+  recorrentes e nomear responsáveis desde o escopo do projeto.
+- Exemplo de falha real: empresa comprou previsão de demanda como projeto
+  pontual; 18 meses depois o erro dobrou sem que ninguém percebesse, porque
+  não havia monitoramento nem responsável.
+
+2. CICLO DE VIDA DO MODELO EM PRODUÇÃO (6 fases, circular, não linear)
+------------------------------------------------------------------------
+Treinamento inicial -> Validação -> Deployment -> Operação -> Monitoramento
+contínuo -> Retreinamento ou substituição -> (volta à validação) / Aposentadoria
+
+Condições de cada transição:
+- Treinamento -> Validação: reprodutibilidade (dados, código, config. versionados).
+- Validação -> Deployment: critério de corte definido A PRIORI (antes do resultado).
+- Deployment -> Operação: prontidão (checklist verificado, runbook entregue).
+- Operação em diante: monitoramento contínuo decide, por gatilhos declarados,
+  entre retreinamento ou aposentadoria.
+
+Estratégias de exposição do candidato (decisão registrada no plano de
+validação, não detalhe técnico):
+- Shadow deployment: candidato recebe o mesmo tráfego e gera predições em
+  paralelo, sem consumo real (risco zero, custo de rodar 2 modelos).
+- Lançamento canário: fração pequena e reversível do tráfego real.
+- No caso dos compressores: shadow de 4 semanas antes de qualquer promoção.
+
+Mudança de regime chave: em produção, AVALIAÇÃO CONTÍNUA substitui a
+avaliação pontual. A aprovação vence a cada janela de apuração; o modelo
+é bom até que os indicadores digam o contrário.
+
+Local de inferência (nuvem x borda/on-premises) — decisão arquitetural que
+cobra custo operacional diferente:
+- Nuvem: atualização simples e escala elástica; mas custo recorrente por
+  inferência, dependência de conectividade, dado sai do ambiente da empresa.
+- Local/planta: atende regime de repouso do dado e latência previsível; mas
+  a equipe herda manutenção da máquina, procedimento de atualização e
+  alcance limitado do monitoramento.
+- Protocolo de atualização de modelo em ambiente local (4 passos): pacote
+  chega com versão e checksum -> instalação em janela combinada (nunca
+  durante operação crítica) -> verificação pós-instalação contra lote de
+  referência -> pacote anterior disponível para rollback imediato.
+
+ARMADILHA COMUM: tratar a validação como linha de chegada (como um artigo
+aceito). Isso gera um "sistema órfão" sem monitoramento, responsável ou
+critério de retreinamento.
+
+3. MLOPS ESSENCIAL (6 práticas)
+----------------------------------
+Princípio unificador: REPRODUTIBILIDADE OPERACIONAL — não a reprodutibilidade
+de artigo científico, mas a capacidade de reconstruir qualquer versão do
+sistema (dados+código+config+ambiente) quando um gate, auditoria ou
+incidente exigir. "Resultado que não se reconstrói não sustenta decisão."
+
+a) Versionamento: cobre 5 elementos com linhagem rastreável — código, dados
+   de treino, modelo, configuração (hiperparâmetros/limiares/janelas) e
+   ambiente de execução.
+
+b) Pipeline de dados sob o MESMO regime do pipeline de modelo: versionado e
+   monitorado, com validação de esquema, intervalos e taxa de preenchimento
+   a cada lote. Armadilha: monitorar só o modelo e deixar o pipeline de
+   dados solto (mudança de esquema na fonte derruba a qualidade sem que
+   nenhum indicador de modelo acuse a causa).
+
+c) Pipeline de retreinamento: agendado (calendário, simples) x por evidência
+   (disparado por gatilhos de monitoramento). Regras inegociáveis: dados de
+   retreinamento passam pelas mesmas verificações de entrada; candidato
+   retreinado sempre passa por validação antes de ser promovido (nunca
+   promoção automática sem validação).
+
+d) Monitoramento em produção — 4 famílias de indicadores:
+   - Drift de dados: distribuição das entradas mudou vs. treinamento.
+   - Drift de conceito (mais traiçoeiro): a relação entrada->saída muda
+     mesmo com entradas estáveis.
+   - Qualidade do modelo: métrica da tarefa, mas rótulos chegam com atraso
+     em produção (usa-se indicador substituto/proxy enquanto isso).
+   - Operação: latência, disponibilidade, custo, saúde do pipeline.
+   Regras de leitura: (1) gatilho sem janela declarada não é gatilho, é
+   opinião; (2) drift detectado NÃO implica retreinar de imediato — primeiro
+   investigar a causa (sensor, esquema, evento transitório), pois retreinar
+   sobre dado defeituoso ensina o defeito ao modelo.
+
+e) Registro de experimentos: cada execução registra identificador, hipótese,
+   versão de dados/código, configuração completa, métricas e decisão com
+   justificativa. Sem isso, o veredito vira "memória de reunião".
+   Armadilha: tratar AutoML como substituto dos critérios do projeto — ele
+   otimiza a métrica que recebe, não o critério de negócio que importa.
+
+f) Orquestração de pipelines: decisão de RESPONSABILIDADE, não de ferramenta.
+   3 perguntas: o que precisa rodar sem pessoa olhando? quem responde quando
+   falha (nome, não time)? o que entra no runbook/checklist? Não orquestrar
+   também é decisão legítima, se registrada.
+
+Ferramentas citadas (referência de categoria, não prescrição): DVC/lakeFS
+(versionamento), MLflow/Weights & Biases (experimentos), Airflow/Prefect
+(orquestração), Evidently/Grafana (monitoramento).
+
+Dois artefatos operacionais fecham o tópico:
+- RUNBOOK MÍNIMO: 4 seções — identificação do sistema, procedimentos
+  "quando X, faça Y" (mín. 3), responsáveis com escalada, gatilhos coerentes
+  com a matriz. Teste de qualidade: pessoa que nunca viu o projeto consegue
+  seguir e resolver o incidente.
+- CHECKLIST DE PRONTIDÃO PARA PRODUÇÃO: gate objetivo e verificável entre
+  deployment e operação (versões reproduzíveis, validação aprovada,
+  monitoramento ativo, runbook entregue, pipeline sob verificação, acordo
+  de dados vigente). Deve ser verificado por quem NÃO construiu o item
+  (verificação cruzada / pares trocados).
+
+4. DÉBITO TÉCNICO DE ML (Sculley et al., NeurIPS 2015 - "Hidden Technical
+   Debt in Machine Learning Systems")
+----------------------------------------------------------------------------
+Débito técnico de ML não é falha moral, é propriedade estrutural de sistemas
+cujo comportamento depende de dados. A pergunta certa não é "como zerar?"
+mas "quanto carregamos, onde, e quando pagamos?". Cinco formas:
+
+1) Erosão de fronteiras: o modelo dissolve contratos de abstração do
+   software tradicional. Sintomas: correção em cascata (modelo B corrige
+   modelo A, cria grafo rígido) e consumidor não declarado (sistema a
+   jusante usa a predição sem contrato formal).
+
+2) Emaranhamento (CACE — Changing Anything Changes Everything): como o
+   modelo aprende distribuições conjuntas, mudar uma única feature
+   redistribui pesos em todo o sistema. Não existe "mudança pequena" nas
+   entradas de um modelo em produção.
+
+3) Inferno de dependências: dependências de CÓDIGO (bibliotecas/versões) e,
+   mais caras, dependências de DADOS (sem compilador que as verifique).
+   Versão contemporânea: modelo de terceiro atrás de uma API que muda de
+   comportamento quando o provedor atualiza.
+
+4) Feedback loops: as predições do sistema alteram os dados futuros.
+   - Loop direto: o sucesso do sistema "consome" os próprios exemplos de
+     falha (ex.: manutenção preditiva que evita falhas empobrece os dados
+     de treino futuro — risco de confundir degradação com vitória).
+   - Loop oculto: dois sistemas desconhecidos entre si se influenciam via
+     o mundo físico/operacional.
+
+5) Débito de configuração: thresholds, janelas, features e flags espalhados
+   em planilhas/variáveis/hardcode mudam o comportamento sem revisão.
+   Versão contemporânea inclui prompts e limiares de modelos generativos.
+   Tratamento: configuração como código, versionada e revisada.
+
+Anti-padrões associados (sinais visíveis do débito invisível): glue code
+(código de integração sem testes), pipeline jungle (pipelines que crescem
+sem refatoração) e caminhos experimentais mortos (flags antigas esquecidas).
+
+Mitigações já construídas ao longo do curso (nada exige ferramenta nova):
+contratos de dados explícitos + mapa de consumidores; verificação de
+entrada + monitoramento por feature + retreinamento sempre validado;
+inventário de fornecedores com versão fixada; registrar intervenções como
+metadados + manter grupo de controle (holdout) para taxa real não
+enviesada; configuração versionada como código.
+
+Débito técnico identificado = risco operacional: entra na matriz de risco
+do curso com probabilidade, severidade, mitigação com responsável e
+gatilho de reavaliação a cada gate.
+
+5. OS QUATRO ARTEFATOS PRÁTICOS DO BLOCO (como se encaixam)
+--------------------------------------------------------------
+CDP-031 Plano de validação e teste -> fixa critérios de sucesso/descarte A
+PRIORI, estratégia de exposição (shadow/canário), critério de promoção e
+de retorno do candidato. Regra de uso: preencher a Parte A antes da B, e
+usar partição TEMPORAL (nunca aleatória) em séries temporais, para não
+vazar dado (data leakage).
+
+CDP-032 Matriz de avaliação contínua -> "contrato do monitoramento": herda
+os critérios do plano de validação como indicadores; cada linha tem o que
+monitorar, como medir, frequência, gatilho com janela declarada e
+destinatário nomeado. Sem gatilho+destinatário, é "painel bonito, não
+contrato".
+
+CDP-033 Checklist de prontidão -> gate material único por promoção, com
+evidência objetiva por item, cobrindo 6 grupos (versionamento,
+validação aprovada, monitoramento ativo, pipelines/orquestração,
+operação/dados/responsáveis, riscos/transparência). Pendências viram
+"prontidão condicionada", nunca são ignoradas.
+
+CDP-034 Runbook mínimo -> opera o sistema sem depender da memória de quem
+construiu. Cada gatilho do runbook espelha uma linha da matriz; cada
+procedimento traz uma "decisão de segurança" tomada de antemão (ex.:
+suspender alertas após 8h sem dados, porque alerta sobre dado ausente é
+pior que ausência de alerta).
+
+Cadeia de dependência entre artefatos: Plano de validação -> Matriz de
+avaliação contínua -> Runbook -> Checklist de prontidão (que verifica se
+os três anteriores existem e estão coerentes entre si).
+
+CONCLUSÃO DO BLOCO
+--------------------
+Mensagem final: "Gerenciar débito conscientemente é a última fronteira
+entre operar um sistema e ser operado por ele." O ciclo de vida, o MLOps
+essencial e o débito técnico fecham o arco iniciado nos blocos anteriores
+do curso (hipóteses com critério a priori, arquitetura/local de inferência,
+governança de dados) transformando-os em regime permanente de operação.
+
+6. REFORÇOS DO QUIZ FORMATIVO (pontos de aplicação que a prova cobra)
+-------------------------------------------------------------------------
+- Diagnóstico diferencial drift de dados x drift de conceito: se o painel
+  mostra ENTRADAS ESTÁVEIS mas a taxa de confirmação dos alertas (ou a
+  correspondência predição->desfecho) cai de forma sustentada por ciclos
+  consecutivos, é drift de CONCEITO (não de dados) — mesmo que a causa não
+  seja óbvia. Resposta correta nesse caso: revisar a hipótese e retreinar
+  com validação, nunca "esperar a apuração trimestral" passivamente.
+
+- Mesmo com causa aparente evidente para o drift de dados (ex.: desvio
+  começou um dia após recalibração de sensor registrada), a sequência
+  correta continua sendo investigar a causa como INCIDENTE DE DADOS no
+  pipeline antes de acionar qualquer retreinamento — nunca retreinar direto
+  "para reduzir o tempo de exposição ao desvio". Causa identificável não
+  dispensa o passo de investigação; ao contrário, confirma que o caminho é
+  corrigir a entrada, não ensinar o defeito ao modelo.
+
+- Checklist de prontidão: diferença entre item NÃO DEMONSTRÁVEL e
+  PENDÊNCIA ACEITÁVEL. Uma matriz de avaliação contínua que existe mas cujas
+  linhas não declaram gatilho de janela nem destinatário não é "pendência a
+  resolver depois" — é item do Grupo 3 simplesmente não atendido (matriz
+  "painel", não contrato). Pendência aceitável é outra coisa: uma ação de
+  verificação ainda não realizada sobre um artefato que já está correto
+  (ex.: o exemplo do caderno, em que falta só percorrer o acesso ao servidor
+  com o responsável da planta, mas o restante do checklist está pleno).
+
+- Gatilho de operação (latência, disponibilidade) NÃO é o mesmo gatilho de
+  saúde do pipeline (ausência de dados). Cada família de indicador tem seu
+  próprio procedimento; não se aciona "drift persistente" para ausência de
+  dados, nem se trata ausência de poucas horas como se já fosse o limiar de
+  suspensão de alertas (esse limiar é especificamente >8h; entre 0 e 8h a
+  ação é investigar/registrar, nunca suspender adiantado).
+
+- Superfície do indicador deve casar com a VELOCIDADE DE AÇÃO exigida e a
+  RARIDADE do sinal, não com conveniência de relatório: indicadores de
+  operação (latência/disponibilidade) pedem superfície contínua e
+  automática com alerta imediato ao responsável que pode agir na hora;
+  indicadores que dependem de rótulo raro e atrasado (qualidade do modelo,
+  falhas confirmadas) pedem superfície narrativa e periódica (ex.:
+  trimestral), porque um número de alta frequência sobre evento raro é
+  ruído disfarçado de tendência. Misturar as duas cadências quebra a lógica
+  da matriz.
+
+- Orquestração de pipelines é decisão CASO A CASO dentro do mesmo projeto,
+  não uma regra única aplicada a todos os pipelines: o que roda recorrente e
+  sem pessoa olhando e alimenta decisão operacional (ex.: ingestão horária)
+  pede orquestração com alerta de falha e responsável nomeado; o que roda
+  sob demanda (ex.: notebook exploratório) não precisa desse regime; e o
+  retreinamento pode ficar agendado, mas a promoção ao modelo em produção
+  nunca é automática — é sempre validada e decidida por pessoa nomeada.
+
+- Reabrir uma decisão arquitetural já fixada (ex.: trocar inferência local
+  por nuvem) nunca é uma mudança "neutra de engenharia": tem efeito em
+  cadeia sobre os outros artefatos do bloco — o regime de repouso do dado
+  que justificou a escolha original, o runbook (o protocolo local de
+  atualização deixa de existir), a matriz de avaliação contínua (o
+  indicador de operação da inferência muda de natureza) e o acordo de dados
+  com a empresa parceira. Avaliar o ganho de simplicidade sem olhar essa
+  cadeia é o mesmo erro de "escolher a arquitetura e descobrir o custo
+  operacional depois".
+
+- Feedback loop OCULTO (hidden feedback loop), para reforçar a distinção em
+  relação ao loop DIRETO do caso principal dos compressores: ocorre quando
+  DOIS SISTEMAS AUTÔNOMOS que não se conhecem se influenciam mutuamente por
+  meio do ambiente físico/operacional (ex.: um sistema de agendamento de
+  produção da planta passa a usar os alertas de manutenção para redistribuir
+  carga entre compressores; isso muda o perfil de vibração, que muda o
+  comportamento do modelo, que muda os alertas que o agendamento consome —
+  um sistema treinando o ambiente do outro sem que nenhum dos dois saiba da
+  existência do outro). Mitigação: tornar o acoplamento visível via mapa de
+  consumidores das predições, já que não há como simplesmente proibi-lo.
