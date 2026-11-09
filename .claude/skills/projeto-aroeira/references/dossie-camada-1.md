@@ -1,6 +1,6 @@
 # Dossiê do caso — Camada 1 (KIT-026)
 
-> Fonte: `Projeto/KIT-026_camada_01.pdf`. Liberada na fase de **imersão** do Encontro 1 (~30 min após o início), pelo mentor. A camada 0 continua valendo. Códigos de proveniência `C1-01` a `C1-04`.
+> Fonte: `Etapa 1 - Projeto Aroeira/KIT-026_camada_01.pdf`. Liberada na fase de **imersão** do Encontro 1 (~30 min após o início), pelo mentor. A camada 0 continua valendo. Códigos de proveniência `C1-01` a `C1-04`.
 
 ## C1-01. Extrato da política de garantia de fábrica, série CP
 - **Cobertura**: 24 meses a contar da data de início da garantia, ou 16000 horas de operação acumuladas, o que ocorrer primeiro (reafirma C0-04).

@@ -1,6 +1,6 @@
 # Encontro 2 — Comparar, decidir e desenhar
 
-> Fonte: `Projeto/KIT-022_guia_do_aluno.pdf` (seção 4, mais as seções 1.2–1.4, que valem para o arco todo) e os templates em `Projeto/Encontro 2/Documentos/`: `IND-KIT-004-EN2-T2` (Matriz de Alternativas), `IND-KIT-007-EN3-T1` (Decisão Justificada), `IND-KIT-008-EN3-T2` (Canvas de Arquitetura Conceitual). A mesma pasta traz cópias do Mapa (KIT-001) e da Hipótese (KIT-003) **já preenchidos pelo Squad 5 no Encontro 1**, idênticos aos de `Projeto/Encontro 1/entregaveis1/`. São o artefato de entrada do encontro.
+> Fonte: `Etapa 1 - Projeto Aroeira/KIT-022_guia_do_aluno.pdf` (seção 4, mais as seções 1.2–1.4, que valem para o arco todo) e os templates em `Etapa 1 - Projeto Aroeira/Encontro 2/Documentos/`: `IND-KIT-004-EN2-T2` (Matriz de Alternativas), `IND-KIT-007-EN3-T1` (Decisão Justificada), `IND-KIT-008-EN3-T2` (Canvas de Arquitetura Conceitual). A mesma pasta traz cópias do Mapa (KIT-001) e da Hipótese (KIT-003) **já preenchidos pelo Squad 5 no Encontro 1**, idênticos aos de `Etapa 1 - Projeto Aroeira/Encontro 1/entregaveis1/`. São o artefato de entrada do encontro.
 >
 > Semana 2, 240 min. Pré-requisito: **M1 (IA Generativa) e M2 (IA Agentic) concluídos**. Levar: Mapa Técnico do Problema e Hipótese Técnica na pasta da turma.
 
@@ -83,7 +83,7 @@ Pronto quando:
 Orçamento de perguntas: **3** (consumido mesmo por pergunta mal formulada; não acumula do E1). Sem resposta → "a empresa vai verificar" → registrar como incerteza.
 
 ## Entregue pelo Squad 5
-Versão entregue em 08/10/2026 (`Projeto/Encontro 2/Artefatos/`), transcrita e validada em `entregaveis-e2-squad5.md`. Os esboços de preparação ficam em `Projeto/Encontro 2/Preparacao/` e são mais completos que o entregue em vários pontos.
+Versão entregue em 08/10/2026 (`Etapa 1 - Projeto Aroeira/Encontro 2/Artefatos/`), transcrita e validada em `entregaveis-e2-squad5.md`. Os esboços de preparação ficam em `Etapa 1 - Projeto Aroeira/Encontro 2/Preparacao/` e são mais completos que o entregue em vários pontos.
 
 ## Ponte para o Encontro 3
 A Decisão e o Canvas viram entrada da Matriz de Teste (KIT-011). Lá, o critério de sucesso é fixado **antes** de rodar o notebook no Colab. Por isso, os critérios de teste das hipóteses precisam chegar ao fim do E2 com número, linha de base e horizonte definidos. Pré-requisito do E3: M3 (Data Centric), M4 (Edge) e M5 (Explainable) concluídos.

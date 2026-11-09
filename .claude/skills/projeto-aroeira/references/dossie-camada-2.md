@@ -1,6 +1,6 @@
 # Dossiê do caso — Camada 2 (KIT-027)
 
-> Fonte: `Projeto/Encontro 2/Documentos/KIT-027_camada_02.pdf`. Liberada na **abertura do Encontro 2**. Códigos `C2-01` e `C2-02`. As camadas 0 e 1 continuam valendo. O registro de qual célula do E1 caiu vai no campo de pontos de incerteza da Decisão Justificada (KIT-007).
+> Fonte: `Etapa 1 - Projeto Aroeira/Encontro 2/Documentos/KIT-027_camada_02.pdf`. Liberada na **abertura do Encontro 2**. Códigos `C2-01` e `C2-02`. As camadas 0 e 1 continuam valendo. O registro de qual célula do E1 caiu vai no campo de pontos de incerteza da Decisão Justificada (KIT-007).
 
 ## C2-01. Revisão manual de ordens pelo engenheiro de campo (Wagner)
 - **Recorte:** corretivas com causa genérica (`causa_nao_identificada`, `corretiva_geral`, `desgaste_natural`), 205 ordens em d3.
@@ -20,4 +20,4 @@ Verba aprovada **para o assistente conversacional do pedido original** (C0-05). 
 - **Mapa §2:** reincidência medida por `causa_registrada` (C2-01).
 - **Mapa §4:** restrições operacionais sem prazo e sem verba (C2-02).
 
-Análise completa e esboços: `Projeto/Encontro 2/Preparacao/` (arquivo `06_camada2_impacto.md`).
+Análise completa e esboços: `Etapa 1 - Projeto Aroeira/Encontro 2/Preparacao/` (arquivo `06_camada2_impacto.md`).

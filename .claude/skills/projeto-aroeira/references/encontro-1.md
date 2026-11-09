@@ -1,6 +1,6 @@
 # Encontro 1 — Compreender, delimitar e hipotetizar
 
-> Fonte: `Projeto/KIT-022_guia_do_aluno.pdf` (seções 1 a 3) e `Projeto/KIT-048_guia_classroom_colab.pdf`. Semana 1 do arco de 3 encontros (Laboratórios de decisão técnica, Formação 1), 240 minutos presenciais, foco **"compreender, delimitar e hipotetizar"**. É o único encontro sem artefato de entrada (não herda nada de um encontro anterior).
+> Fonte: `Etapa 1 - Projeto Aroeira/KIT-022_guia_do_aluno.pdf` (seções 1 a 3) e `Etapa 1 - Projeto Aroeira/KIT-048_guia_classroom_colab.pdf`. Semana 1 do arco de 3 encontros (Laboratórios de decisão técnica, Formação 1), 240 minutos presenciais, foco **"compreender, delimitar e hipotetizar"**. É o único encontro sem artefato de entrada (não herda nada de um encontro anterior).
 
 ## Contexto do arco (para situar o Encontro 1 no todo)
 

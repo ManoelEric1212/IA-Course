@@ -1,8 +1,8 @@
 # Entregáveis do Encontro 2 — Squad 5 (UFC), versão entregue
 
-> Fonte: `Projeto/Encontro 2/Artefatos/` — `IND-KIT-004-EN2-T2 - Squad 5 UFC.docx.pdf` (Matriz de Alternativas), `IND-KIT-007-EN3-T1 - Squad 5 UFC.docx.pdf` (Decisão Justificada), `IND-KIT-008-EN3-T2 - Squad 5 UFC.docx.pdf` (Canvas). Data em todos: **08/10/2026**. Escrita e pasta: Rhuan Nunes. Apresentação: Isac Andrade.
+> Fonte: `Etapa 1 - Projeto Aroeira/Encontro 2/Artefatos/` — `IND-KIT-004-EN2-T2 - Squad 5 UFC.docx.pdf` (Matriz de Alternativas), `IND-KIT-007-EN3-T1 - Squad 5 UFC.docx.pdf` (Decisão Justificada), `IND-KIT-008-EN3-T2 - Squad 5 UFC.docx.pdf` (Canvas). Data em todos: **08/10/2026**. Escrita e pasta: Rhuan Nunes. Apresentação: Isac Andrade.
 >
-> A capa do KIT-007/008 diz "Encontro 3", mas são instrumentos do **Encontro 2** deste arco (ver `encontro-2.md`). É **esta** versão que o mentor tem e que entra na Matriz de Teste (KIT-011) do E3, não os esboços de `Projeto/Encontro 2/Preparacao/`.
+> A capa do KIT-007/008 diz "Encontro 3", mas são instrumentos do **Encontro 2** deste arco (ver `encontro-2.md`). É **esta** versão que o mentor tem e que entra na Matriz de Teste (KIT-011) do E3, não os esboços de `Etapa 1 - Projeto Aroeira/Encontro 2/Preparacao/`.
 >
 > Devolutiva do mentor e caixas de critério de pronto: **em branco** nos três PDFs.
 

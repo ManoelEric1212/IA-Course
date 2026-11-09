@@ -1,6 +1,6 @@
 # Dossiê do caso — Camada 0 (KIT-025)
 
-> Fonte: `Projeto/KIT-025_camada_00.pdf`. Leitura obrigatória antes do Encontro 1, junto ao módulo M0. Cada item tem código de proveniência `C0-01` a `C0-12` — toda célula de instrumento preenchida com informação daqui deve citar o código correspondente na justificativa (célula sem proveniência é devolvida pelo mentor). Este documento **não traz análise, não traz indicador de painel, não traz hipótese de causa** — é só o material bruto para começar o Encontro 1 já na análise.
+> Fonte: `Etapa 1 - Projeto Aroeira/KIT-025_camada_00.pdf`. Leitura obrigatória antes do Encontro 1, junto ao módulo M0. Cada item tem código de proveniência `C0-01` a `C0-12` — toda célula de instrumento preenchida com informação daqui deve citar o código correspondente na justificativa (célula sem proveniência é devolvida pelo mentor). Este documento **não traz análise, não traz indicador de painel, não traz hipótese de causa** — é só o material bruto para começar o Encontro 1 já na análise.
 
 ## C0-01. A empresa
 Aroeira Equipamentos Industriais fabrica compressores de ar de parafuso e secadores de ar comprimido. Fabricante de porte médio, fábrica única, atua em todo o território nacional. Opera assistência técnica própria e administra a garantia contratual de fábrica.
@@ -29,7 +29,7 @@ Justificativa apresentada (três partes):
 > **Atenção**: este é o pedido tal como chegou, **não** uma delimitação de problema. "Delimitar é trabalho do Encontro 1." Não confundir a solução pedida (assistente conversacional) com o problema raiz — distinguir sintoma de causa é parte central do Mapa Técnico do Problema (KIT-001).
 
 ## C0-06. Os quatro conjuntos de dados
-Arquivos na turma do Classroom, em `Projeto/Encontro 1/Dados/`:
+Arquivos na turma do Classroom, em `Etapa 1 - Projeto Aroeira/Encontro 1/Dados/`:
 
 | Arquivo | Conteúdo | Granularidade | Campos | Linhas |
 |---|---|---|---|---|
