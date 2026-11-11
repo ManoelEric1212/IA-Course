@@ -46,6 +46,8 @@ Rascunho em 3 blocos:
 > 🟡 Fechar depois da leitura. A situação exige no mínimo: **eficiência**, com tamanho em disco/memória e latência por amostra (batch 1, CPU, 2 threads); **qualidade**, com acurácia e F1 macro, mais a **perda em relação à referência float32**. Vale discutir se precisamos olhar **por classe** (`seguranca` é a menor e a mais cara de errar).
 
 ### No Encontro 1 (squad + instrutor)
+> ✅ **Embasamento rodado em 10/11** (`02_embasamento_pre_E1.md`) e **KITs pré-preenchidos** em `../Artefatos/` (KIT-001, 003, 004, 020). O critério do KIT-003 já está no formato dos campos do notebook.
+
 - [ ] **KIT-001 Mapa Técnico do Problema**: pedido (GPU) separado do problema (classificar offline < 1 s no coletor atual); restrições; o dado (`relatos_de_campo.csv`, 3.000 relatos de jun/2026, sintético).
 - [ ] **KIT-003 Hipótese Técnica**, com o **critério de aceite** (rascunho abaixo).
 - [ ] **KIT-004 Matriz de Alternativas** (rascunho abaixo).
@@ -70,7 +72,7 @@ Pontos para a squad decidir (e saber defender):
 - **Por que 2 p.p. e não 1 ou 5?** Abaixo de ~1 p.p., a diferença é variação da amostra (aviso da etapa 9 do notebook).
 - **A média de tempo basta?** O notebook mede a **média** por relato. Um p95 seria mais honesto para "a resposta precisa sair em < 1 s". Registrar como limitação, ou pedir ao instrutor para medir p95 também.
 - **A memória medida é o arquivo, não a RAM em execução**, que inclui tokenizador, runtime e ativações. Por isso a folga de 1/8.
-- **Recorte por classe:** com ~32 relatos de `seguranca` na amostra, cada erro vale ~3 p.p. de recall, o que é ruidoso demais para virar critério. Usar o F1 macro e **olhar** a classe na defesa.
+- **Recorte por classe:** com **39** relatos de `seguranca` na amostra (contagem real, `02_embasamento_pre_E1.md`), cada erro vale ~2,6 p.p. de recall, o que é ruidoso demais para virar critério. Usar o F1 macro e **olhar** a classe na defesa.
 
 #### 🟡 Rascunho da Matriz de Alternativas (KIT-004)
 

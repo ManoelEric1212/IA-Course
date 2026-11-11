@@ -1,0 +1,102 @@
+Loading pretrained config for `neuralmind/bert-base-portuguese-cased` from `transformers`...
+┌────────────────────────────────────────────────────────────────────────┐
+│    Memory Usage for loading `neuralmind/bert-base-portuguese-cased`    │
+├───────┬─────────────┬──────────┬───────────────────────────────────────┤
+│ dtype │Largest Layer│Total Size│          Training using Adam          │
+├───────┼─────────────┼──────────┼───────────────────────────────────────┤
+│float32│   88.81 MB  │415.52 MB │                1.62 GB                │
+│float16│   44.4 MB   │207.76 MB │               831.03 MB               │
+│  int8 │   22.2 MB   │103.88 MB │                  N/A                  │
+│  int4 │   11.1 MB   │ 51.94 MB │                  N/A                  │
+└───────┴─────────────┴──────────┴───────────────────────────────────────┘
+Loading pretrained config for `Qwen/Qwen2.5-1.5B-Instruct` from `transformers`...
+┌──────────────────────────────────────────────────────┐
+│Memory Usage for loading `Qwen/Qwen2.5-1.5B-Instruct` │
+├───────┬─────────────┬──────────┬─────────────────────┤
+│ dtype │Largest Layer│Total Size│ Training using Adam │
+├───────┼─────────────┼──────────┼─────────────────────┤
+│float32│  890.25 MB  │ 5.75 GB  │       23.0 GB       │
+│float16│  445.12 MB  │ 2.88 GB  │       11.5 GB       │
+│  int8 │  222.56 MB  │ 1.44 GB  │         N/A         │
+│  int4 │  111.28 MB  │ 736.1 MB │         N/A         │
+└───────┴─────────────┴──────────┴─────────────────────┘
+=== 1. Notebook de estudo: celulas 5 e 7 (quantizacao linear 768x768) ===
+bytes float32: 2359296
+bytes int8:    589824
+escala: 0.001833951915614307
+erro medio absoluto: 0.0004580397508107126
+maior erro: 0.0009169764816761017 | escala/2 = 0.0009169759578071535
+[com peso extremo] escala: 0.03937007859349251
+[com peso extremo] erro medio absoluto: 0.009844401851296425
+[com peso extremo] fracao de pesos que viram 0: 0.3054792582988739
+[com peso extremo] niveis int8 distintos usados: 14 (antes: 238 )
+
+=== 2. Dados e divisao identica ao notebook 02 (etapa 3) ===
+treino 2400 | teste 600 | amostra 300
+classe
+eletrica          89
+mecanica          69
+hidraulica        56
+instrumentacao    47
+seguranca         39
+
+=== 3. Tokenizador BERTimbau: truncamento em max_length=64 ===
+tokens por relato (com [CLS]/[SEP]): media 29.2 | mediana 26 | p95 55 | max 93
+relatos com > 64 tokens (seriam truncados): 73
+na amostra de 300: media 30.2 | max 87
+maior relato: TECNICO RELATA LINHA DE AR COMPRIMIDO DO ESTEIRA TRANSPORTADORA C/ VAZAMENTO. ENGRENAGEM DO REDUTOR DO TRANSPORTADOR DE CORREIA COM DENTE QUEBRADO - FEITO REAPERTO PROVISORIO
+  tokens: ['T', '##EC', '##N', '##IC', '##O', 'R', '##EL', '##AT', '##A', 'L', '##IN', '##HA', 'DE', 'AR', 'CO', '##MP', '##RI', '##MI', '##DO', 'DO', 'ES', '##TE', '##IR', '##A', 'T', '##RA', '##N', '##SP', '##OR', '##TA', '##DO', '##RA', 'C', '/', 'V', '##A', '##Z', '##AM', '##EN', '##TO', '.', 'E', '##NG', '##RE', '##NA', '##GE', '##M', 'DO', 'R', '##ED', '##UT', '##OR', 'DO', 'T', '##RA', '##N', '##SP', '##OR', '##TA', '##DO', '##R', 'DE', 'CO', '##R', '##RE', '##IA', 'CO', '##M', 'DE', '##NT', '##E', 'Q', '##U', '##EB', '##RA', '##DO', '-', 'F', '##EI', '##TO', 'R', '##EA', '##PE', '##RT', '##O', 'PR', '##O', '##VI', '##SO', '##RI', '##O']
+fertilidade (subtokens por palavra): 2.02
+  'rolate' -> ['ro', '##la', '##te']
+  'perot' -> ['per', '##ot']
+  'paienl' -> ['pai', '##en', '##l']
+  'cntator' -> ['c', '##nta', '##tor']
+  'etqiuetagem' -> ['et', '##q', '##iu', '##eta', '##gem']
+  'bba' -> ['b', '##ba']
+  'mot.' -> ['mo', '##t', '.']
+
+=== 4. Vocabulario: palavras da amostra que o TF-IDF nunca viu no treino ===
+vocabulario do treino: 705
+relatos da amostra com >=1 palavra fora do vocabulario: 45 de 300
+palavras fora do vocabulario: 52 de 3885 (1.3%)
+exemplos: ['acoplaento', 'acoplmaento', 'baiox', 'biaxo', 'bloqeuio', 'bmba', 'boato', 'boto', 'caldira', 'caliracao', 'centriufga', 'compresosr', 'copo', 'coreria', 'corop', 'disuntor', 'dsijuntor', 'efriar', 'encoedr', 'eqipamento', 'equipamenot', 'erada', 'eteira', 'etseira', 'feha', 'flga', 'geardor', 'hdiraulica', 'hidralica', 'inetrvencao', 'intervenaco', 'isloamento', 'isoamento', 'oprando', 'parafsuo', 'percisa', 'pone', 'praada', 'prducao', 'proteao']
+
+=== 5. Relatos mistos com pista de seguranca (heuristica de 01_leitura_dos_dados) ===
+[base completa] pista seguranca: 254 | seguranca+eletrica: 56
+   rotulo dos mistos: {'eletrica': 29, 'seguranca': 27}
+   com pista de seguranca mas rotulo != seguranca: 38 {'eletrica': 37, 'mecanica': 1}
+[teste (600)] pista seguranca: 61 | seguranca+eletrica: 12
+   rotulo dos mistos: {'eletrica': 7, 'seguranca': 5}
+   com pista de seguranca mas rotulo != seguranca: 10 {'eletrica': 10}
+[amostra (300)] pista seguranca: 36 | seguranca+eletrica: 5
+   rotulo dos mistos: {'eletrica': 3, 'seguranca': 2}
+   com pista de seguranca mas rotulo != seguranca: 6 {'eletrica': 6}
+
+mistos da amostra (rotulo | texto):
+  eletrica   | CABO DE ALIMENTACAO DO TALHA DA PONTE ROLANTE COM ISOLAMENTO DANIFICADO, GUARDA-CORPO PERTO DO TALHA DA PONTE ROLANTE SOLTO
+  seguranca  | OS aberta, guarda-corpo perto do compressor de ar solto, motor do compr. parafuso com isolamento baixo no megometro, linha parada
+  seguranca  | MOTOR DO AGITADOR SEM BLOQUEIO E ETIQUETAGEM NA INTERVENCAO. MOT. ELETRICO C/ CORRENTE ALTA, RELE TERMICO ATUANDO
+  eletrica   | ocorrencia: protecao do ponte removida e nao recolocada; fusivel do comando do talha da ponte rolante queimado, solicitado apoio do turno seguinte
+  eletrica   | ocorrencia: cabo de alimentacao do compressor de ar c/ isolamento danificado, aterramento do compressor rompido, ja aconteceu smeana passada
+
+=== 6. Duplicados e vazamento treino/teste ===
+textos da amostra que aparecem identicos no treino: 1
+
+=== 7. Ruido de rotulo: textos quase iguais com rotulo diferente ===
+grupos de mesmo conjunto de palavras com >1 rotulo: 0
+[base] caixa alta: 584 (19.5%)
+   tokens medios caixa alta x normal: 47.5 x 24.8
+   truncados: 73 | desses em caixa alta: 73
+   classe dos truncados: {'eletrica': 29, 'hidraulica': 14, 'mecanica': 14, 'instrumentacao': 10, 'seguranca': 6}
+   truncados que PERDEM a pista de seguranca no corte: 4 {'eletrica': 3, 'seguranca': 1}
+     - TECNICO RELATA GUARDA-CORPO PERTO DO ESTEIRA TRANSPORTADORA SOLTO E AQUECIMENTO NO BORNE DO ESTEIRA, PRECISA DE PECA
+     - OPERADOR INFORMA QUE CABO DE ALIMENTACAO DO MOT. 50CV COM ISOLAMENTO DANIFICADO. GUARDA-CORPO PERTO DO MOTOR ELETRICO SOLTO - EQUIPAMENTO OPERANDO COM RESTRICAO
+     - OCORRENCIA: CABO DE ALIMENTACAO DO MOTOR DO AGITADOR COM ISOLAMENTO DANIFICADO, GUARDA-CORPO PERTO DO MOT. SOLTO - SEM PECA NO ALMOX
+   caixa alta por classe (%): {'eletrica': 18.6, 'hidraulica': 21.6, 'instrumentacao': 21.4, 'mecanica': 19.1, 'seguranca': 16.7}
+[amostra] caixa alta: 58 (19.3%)
+   tokens medios caixa alta x normal: 47.9 x 26.0
+   truncados: 7 | desses em caixa alta: 7
+   classe dos truncados: {'eletrica': 3, 'mecanica': 2, 'seguranca': 1, 'instrumentacao': 1}
+   truncados que PERDEM a pista de seguranca no corte: 1 {'eletrica': 1}
+     - CABO DE ALIMENTACAO DO TALHA DA PONTE ROLANTE COM ISOLAMENTO DANIFICADO, GUARDA-CORPO PERTO DO TALHA DA PONTE ROLANTE SOLTO
+   caixa alta por classe (%): {'eletrica': 21.3, 'hidraulica': 19.6, 'instrumentacao': 12.8, 'mecanica': 23.2, 'seguranca': 15.4}

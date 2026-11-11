@@ -5,7 +5,7 @@
 
 ## Visão geral
 - **3.000 relatos**, de 01/06/2026 a 30/06/2026. Colunas: `id`, `data`, `equipamento`, `texto`, `classe`. Conjunto **sintético**.
-- **Textos curtos:** 13,4 palavras em média (mediana 13, máximo 28); no máximo 181 caracteres. Com `max_length=64` tokens no notebook, praticamente nada deve ser truncado (confirmar no tokenizador).
+- **Textos curtos:** 13,4 palavras em média (mediana 13, máximo 28); no máximo 181 caracteres. ~~Com `max_length=64` tokens no notebook, praticamente nada deve ser truncado.~~ **Corrigido em 10/11:** o tokenizador mostrou **73 relatos (2,4%) com mais de 64 tokens, todos em CAIXA ALTA** (ver `02_embasamento_pre_E1.md`, seção 3).
 - **Ruído de digitação proposital:** abreviações (`mot.`, `bba`, `c/`, `s/`, `equip.`), erros (`rolate`, `perot`, `paienl`, `cntator`, `etqiuetagem`) e textos em CAIXA ALTA.
 - **8 textos duplicados**, todos com o mesmo rótulo. Um par pode cair em treino e teste ao mesmo tempo, mas o efeito é desprezível.
 
@@ -17,7 +17,7 @@
 | mecanica | 842 | 28,1% | ~84 |
 | hidraulica | 499 | 16,6% | ~50 |
 | instrumentacao | 439 | 14,6% | ~44 |
-| seguranca | 318 | 10,6% | ~32 |
+| seguranca | 318 | 10,6% | ~32 (real: **39**, ver `02_embasamento_pre_E1.md`) |
 
 As classes são desbalanceadas, e **`seguranca` é a menor e a mais cara de errar**. Por isso o F1 macro deve entrar no critério ao lado da acurácia.
 
